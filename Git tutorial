@@ -1,0 +1,53 @@
+1. install git
+2. check version: git --version
+3. Set configuration: git config --global user.name "Ximeng Zhao", git config --global user.email "ximengzhao1220@gmail.com",
+                      git --list
+4.git help config
+  git config --help
+  // git pull --help
+ 
+5. git init  // Create an empty Git repository or reinitialize an existing one
+   rm -rf .git // remove the git directory 
+
+6. You can create .gitignore by typing "touch .gitignore", "vi .gitignore"里面放想隐藏的文件后缀或名称(如.DS_Store,.project,*.pyc)
+
+Working directory -> Staging area -> Repository
+
+7. Add Files to staging area:
+   git add -A // add all files to staging area, you can check by typing git status.
+   git add .project // add specific one to staging area
+
+8. Remove Files from staging area to working directory:
+   git reset a.txt  // remove single one
+   git reset   // remove all 
+
+9. git commit: first ensure the file u want to commit is in the staging area, // git add -A, or git add .project
+               then git commit -m "Initial commit", git status to check, git log to see author name and date time.
+
+10. git clone: type git clone ../remote_repo.git . // 拷贝本地repo的内容
+    git clone https://github.com/../../remote_repo.git . //拷贝远程url
+
+11.  create a new branch: git checkout -b dev  // create a new branch called dev and switch to dev
+                          git branch dev   // create a new branch called dev
+                          git branch  // check branch
+                          git checkout master // switch to master branch
+                          git branch -D cc // delete branch cc
+
+12. git merge [branch name]: git merge master //if u are in dev branch, it will bring master content to dev. 
+
+13. git remote add origin https:<url>   // 建立远程存盘名为origin
+    git remote // check remote folder name, u will see origin here. 
+
+14. git push -u origin master  // push data in the current directory to remote repo directory named as origin/master. (-u: track the master, only set when first time)
+
+15. git pull [remote:like origin] [branch:like master]  // pull=fetch +merge
+    git push origin master
+    
+
+16. https://bitbucket.org/repo
+
+17: // start with a remote repo and then create a local repo
+     use git clone to connect remote url
+     
+
+
