@@ -28,7 +28,7 @@ class Solution:
         :type nums: List[int]
         :rtype: int
         """
-        nums=list(set(nums))
+       
         mini=-sys.maxsize
         max1,max2,max3=mini,mini,mini
         for num in nums:
