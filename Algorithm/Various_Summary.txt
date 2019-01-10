@@ -1,0 +1,3 @@
+# Sorted Array 想二分法 time complexity: logn, space complexity: O(1)
+# Binary search runs in at worst logarithmic time, making O(log n) comparisons, where n is the number of elements in the array, the O is Big O notation, and log is the logarithm. Binary search takes constant (O(1)) space, 
+meaning that the space taken by the algorithm is the same for any number of elements in the array.
