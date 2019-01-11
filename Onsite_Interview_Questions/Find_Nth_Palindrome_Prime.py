@@ -1,4 +1,4 @@
-# Question from Amazon Onsite
+# Question 
 
 class Solution():
     def isPrime(self,n):
