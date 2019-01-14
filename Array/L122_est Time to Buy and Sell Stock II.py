@@ -24,6 +24,8 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
 
+后面的比前面的大就做差，之后求和
+
 class Solution:
     def maxProfit(self, prices):
         """
