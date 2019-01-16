@@ -21,7 +21,7 @@ Output: false
 Notes:
 You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.
 
-
+# 长度比较和set结合
 class Solution:
     def wordPattern(self, pattern, str):
         """
@@ -31,3 +31,29 @@ class Solution:
         """
         
         return len(pattern)==len(str.split(' ')) and len(set(zip(pattern,str.split(' '))))==len(set(pattern))==len(set(str.split(' ')))
+
+    
+    # 双字典同时存储
+    class Solution:
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """
+        
+        target=str.split(' ')
+        
+        if len(pattern)!=len(target):
+            return False
+        
+        dict1=dict()
+        dict2=dict()
+        
+        for i in range(len(pattern)):
+            if (pattern[i] in dict1 and dict1[pattern[i]]!=target[i]) or (target[i] in dict2 and dict2[target[i]]!=pattern[i]) :
+                return False
+            else:
+                dict1[pattern[i]]=target[i]
+                dict2[target[i]]=pattern[i]
+        return True
