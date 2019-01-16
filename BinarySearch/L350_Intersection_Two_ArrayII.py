@@ -37,3 +37,26 @@ class Solution:
                 j += 1
     
         return res
+
+    
+    
+    # Method2:
+    class Solution:
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        c1,c2 = collections.Counter(nums1),collections.Counter(nums2)
+        return [i for i in c1.keys() for j in range(min([c1[i], c2[i]]))]
+    
+    or 
+    
+        dic1,dic2 = dict(),dict()
+        for num in nums1:
+            dic1[num] = dic1.get(num,0) + 1
+        for num in nums2:
+            dic2[num] = dic2.get(num,0) + 1
+        return [x for x in dic2 for j in range(min(dic1.get(x,0),dic2.get(x,0)))]
+
