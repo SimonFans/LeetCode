@@ -82,3 +82,56 @@ class Solution:
         else:
             list.next = list1
         return dummy.next
+
+      
+ ## Kth array：
+
+class solution(object):
+    def mergeKList(self,lists):
+        if len(lists)==0:
+            return None
+        while len(lists)>1:
+            nextLists=[]
+            for i in range(0,len(lists)-1,2):
+                nextLists.append(self.merge(lists[i],lists[i+1]))
+            if len(lists)%2==1:
+                nextLists.append(lists[len(lists)-1])
+            lists=nextLists
+        return lists[0]
+
+    def merge(self,l1,l2):
+        len1 = len(l1)
+        len2 = len(l2)
+
+        i=0
+        j=0
+        res=[]
+        if len1==0:
+            return l2
+        if len2==0:
+            return l1
+
+        while i<len1 and j<len2:
+            if l1[i]<l2[j]:
+                res.append(l1[i])
+                i+=1
+            else:
+                res.append(l2[j])
+                j+=1
+        
+        while i<len(l1):
+            res.append(l1[i])
+            i+=1
+        while j<len(l2):
+            res.append(l2[j])
+            j+=1
+
+        return res
+
+array=[[1,3,5],[2,9],[6,8,10]]
+test=solution()
+print(test.mergeKList(array))
+
+#Result:
+[1, 2, 3, 5, 6, 8, 9, 10]
+
