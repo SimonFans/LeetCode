@@ -42,12 +42,6 @@ Input: "256.256.256.256"
 
 Output: "Neither"
 
-Explanation: This is neither a IPv4 address nor a IPv6 address.
---------------------- 
-作者：负雪明烛 
-来源：CSDN 
-原文：https://blog.csdn.net/fuxuemingzhu/article/details/80682716 
-版权声明：本文为博主原创文章，转载请附上博文链接！
 
 
 class Solution(object):
