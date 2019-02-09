@@ -36,3 +36,19 @@ class Solution(object):
                 if len(list_)>Lmax:
                     Lmax=len(list_)
         return Lmax
+
+  // HashMap method   
+  
+class Solution:
+    def lengthOfLongestSubstring(self, s: 'str') -> 'int':
+        n=len(s)
+        ans=0
+        Map_=dict()
+        i=0
+        for j in range(n):
+            if s[j] in Map_:
+                i=max(Map_.get(s[j]),i)
+            ans=max(ans,j-i+1)
+            Map_[s[j]]=j+1
+            
+        return ans
