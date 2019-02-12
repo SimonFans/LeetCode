@@ -14,6 +14,9 @@ A solution set is:
   [-1, -1, 2]
 ]
 
+### as for list, 
+## nums.sort() is faster than sorted(nums) because sorted() will create a new copy. nums.sort() will sort itself, no need to assign
+## to a new variable.
 
 class Solution:
     def threeSum(self, nums):
@@ -22,7 +25,7 @@ class Solution:
         :rtype: List[List[int]]
         """
         s = sorted(nums)  
-    
+        
         output = set() 
         for k in range(len(s)): 
             target = -s[k] 
