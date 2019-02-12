@@ -21,7 +21,7 @@ def balance(st):
             temp.append(c)
 
     out =''
-    for i, c in enumerate(st):-baidu 1point3acres
+    for i, c in enumerate(st):
         if i in ok:
-            out += c. 1point3acres
+            out += c
     return out
