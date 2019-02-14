@@ -47,8 +47,9 @@ class Solution(object):
 
             if word:
                 word += ' ' + lv4[digits - 1] if digits else ''
-                words += word
+                words += word,
             digits += 1
-        return ''.join(words) or 'Zero'
+        return ' '.join(words[::-1]) or 'Zero'
 
+#words=['one hundred','three thousand'] 逆转
 print(Solution().numberToWords(''))
