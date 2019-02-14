@@ -8,13 +8,13 @@ return 2.
 class solution:
     def minMeetingRoomsII(self,test):
 
-        starts_sort=sorted(test, key=lambda x: x[0])
-        ends_sort=sorted(test,key=lambda x: x[1])
+        starts_sort=sorted(test, key=lambda x: x[0])   # [[0,30],[5,10],[15,20]]
+        ends_sort=sorted(test,key=lambda x: x[1])      # [[5,10],[15,20],[0,30]]
         starts=[]
         ends=[]
-        for i in range(len(test)):
-            starts.append(starts_sort[i][0])
-            ends.append(ends_sort[i][1])
+        for i in range(len(test)):                     # run 0, 1, 2
+            starts.append(starts_sort[i][0])           #[0,5,15]
+            ends.append(ends_sort[i][1])               #[10,20,30]
         res=0
         end=0
         for i in range(len(test)):
