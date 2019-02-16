@@ -35,8 +35,7 @@ class Solution(object):
 
         # create a course & its pre-course mapping
         Map={}
-        if len(prerequisites)==0 or prerequisites==None:
-            return True
+        
         # loop to let all course that need pre-course +=1, others no need are 0
         # Map find relationship, exp: 1->4, 2->[4,5]...
         for i in range(len(prerequisites)):
