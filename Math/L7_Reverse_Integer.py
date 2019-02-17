@@ -33,3 +33,25 @@ class Solution(object):
         if res>2**31-1:
             return 0
         return res if x>0 else -res
+
+    # Method 2:
+    
+    class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        res=''
+        if x>0:
+            xstr=str(x)
+        else:
+            xstr=str(-x)
+        l=len(xstr)-1
+        while l>=0:
+            res+=xstr[l]
+            l-=1
+        if int(res)>2**31-1:
+            return 0
+        return int(res) if x>0 else -int(res)
+    
