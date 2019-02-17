@@ -41,7 +41,7 @@ class Solution:
                         if t not in vis:
                             q.append(t)
                             vis.add(t)
-                found=False
+                
         return ans
 
     def isValidParentheses(self, s):
