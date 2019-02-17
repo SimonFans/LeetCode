@@ -33,3 +33,21 @@ class Solution:
     def kClosest(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
         n=sorted(points, key=lambda p: p[0]**2 + p[1]**2)[:K]
         print(n)
+
+     
+
+# method 2
+class Solution:
+    def kClosest(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
+        dis=[]
+        res=[]
+        for p in points:
+            num=p[0]**2+p[1]**2
+            dis.append((num,p))
+
+        dis.sort(key=lambda x:x[0])
+        
+        for i in range(K):
+            res.append(dis[i][1])
+        
+        return res
