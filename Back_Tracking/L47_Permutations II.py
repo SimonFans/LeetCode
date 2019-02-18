@@ -10,6 +10,17 @@ Output:
   [2,1,1]
 ]
 
+思路：  [1,1,2]
+         [1]  
+             [1,2]
+   [1,1,2]       <=[1,2]
+   [1,2,1]       <=[2,1]
+  #second [1] because it equals to previous [1], continue
+         [2]  
+              [1,1]
+   [2,1,1]        <=[1,1]
+      
+
 class Solution:
     def permuteUnique(self, nums):
         """
@@ -31,3 +42,5 @@ class Solution:
             for j in self.permuteUnique(nums[:i] + nums[i+1:]):
                 res.append([nums[i]] + j)
         return res
+
+      
