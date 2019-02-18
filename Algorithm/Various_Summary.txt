@@ -1,3 +1,5 @@
 # Binary search => time complexity: logn, space complexity: O(1)
 # Binary search runs in at worst logarithmic time, making O(log n) comparisons, where n is the number of elements in the array, the O is Big O notation, and log is the logarithm. Binary search takes constant (O(1)) space, 
 meaning that the space taken by the algorithm is the same for any number of elements in the array.
+
+# merge sort is known as an efficient sorting solution as it is O(n log(n)). The algorithm is part of the divide and conquer family: recursively breaking down a problem into two or more sub-problems.
