@@ -47,7 +47,7 @@ class Solution:
         while index < length and s[index].isdigit():
             is_normal = True
             index += 1
-        # Deal with dot ant digits behind it
+        # Deal with dot and digits behind it
         if index < length and s[index] == '.':
             index += 1
             while index < length and s[index].isdigit():
