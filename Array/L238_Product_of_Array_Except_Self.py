@@ -6,7 +6,11 @@ Input:  [1,2,3,4]
 Output: [24,12,8,6]
 Note: Please solve it without division and in O(n).
 
-
+ideas:
+{1                       a[0]      a[0]*a[1]    a[0]*a[1]*a[2]  }
+{a[1]*a[2]*a[3]       a[2]*a[3]       a[3]               1      }
+O(N)
+"""
 
 class Solution:
     def productExceptSelf(self, nums):
