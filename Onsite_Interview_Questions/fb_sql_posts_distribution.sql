@@ -7,7 +7,7 @@ comments=20  frequency=3
 
                     Table story
 
-user_id	  content_id	  date	  content_type	  target_id
+user_id	  content_id	  date	    content_type	  target_id
   22	       1234	     2/1/2015	   photo	        null
   13	       3456	     2/1/2015	   comment	      1234
   47	       5678	     2/1/2015	   comment	      1234
