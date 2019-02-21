@@ -15,12 +15,8 @@ The result can be in any order.
 
 
 class Solution:
-    def intersect(self, nums1, nums2):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: List[int]
-        """
+    class Solution:
+    def intersect(self, nums1: 'List[int]', nums2: 'List[int]') -> 'List[int]':
         res = []
         nums1.sort()
         nums2.sort()
@@ -31,7 +27,7 @@ class Solution:
             elif nums1[i] < nums2[j]:
                 i += 1
             else:
-                if not (len(res) and nums1[i] != nums2[j]):
+                if  nums1[i] == nums2[j]:
                     res.append(nums1[i])
                 i += 1
                 j += 1
