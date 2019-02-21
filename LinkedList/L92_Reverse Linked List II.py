@@ -17,8 +17,16 @@ class Solution:
         :rtype: ListNode
         """
         
-        # pre->2  cur->5  4-3-2, node at 4
+# pre->2  cur->5  4-3-2, node at 4
         
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def reverseBetween(self, head: 'ListNode', m: 'int', n: 'int') -> 'ListNode':
         dummy=pre=ListNode(0)
         dummy.next=head
         # note down previous node and move to current node
@@ -26,15 +34,15 @@ class Solution:
             pre=pre.next
         cur=pre.next
         # reverse the defined part 
-        node=None
+        new_head=None
         for _ in range(n-m+1):
-                tmp=cur.next
-                cur.next=node
-                node=cur
-                cur=tmp
+                p=cur
+                cur=cur.next
+                p.next=new_head
+                new_head=p
         # connect to three parts
         pre.next.next=cur
-        pre.next=node
+        pre.next=new_head
         return dummy.next
         
         
