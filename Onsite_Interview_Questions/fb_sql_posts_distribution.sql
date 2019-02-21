@@ -21,7 +21,7 @@ from
 (
 select a.content_id as Id, count(b.content_id) as comment_nums
 from story a left join story b
-on a.content_id=b.content_id
+on a.content_id=b.target_id
 where a.content_type in ('photo','video')
 and b.content_type='comment'
 group by a.content_id 
