@@ -15,6 +15,7 @@ X X X X
 X X X X
 X O X X
 
+思路： 边界如果有O先赋值为D，如果与其相连的是O则继续为D，否则return， 最后把所有的D变为O，把所有的O变为X,写fill函数的时候注意溢出条件
 
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
