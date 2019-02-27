@@ -16,6 +16,19 @@ Output:
 Explanation:
 One longest palindrome that can be built is "dccaccd", whose length is 7.
 
+[The Best solution]
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        hash=set()
+        for c in s:
+            if c in hash:
+                hash.add(c)
+            else:
+                hash.remove(c)
+        # len(hash): 单个字母的个数
+        return len(s)-len(hash)+1 if len(hash)>0 else len(s)
+
+
 class Solution:
     def longestPalindrome(self, s):
         """
