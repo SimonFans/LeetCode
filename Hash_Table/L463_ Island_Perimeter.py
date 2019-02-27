@@ -18,26 +18,25 @@ Output: 16
 
 
 class Solution:
-    def islandPerimeter(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
-        # 记录多少个1
-        num=0
-        # 记录多少个neighbor
-        neighbor=0
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        if not grid:
+            return 0
+
+        def sum_adjacent(i, j):
+            # define 当前点周围的四个方向
+            adjacent = [(i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)]
+            res = 0
+            # 列出边界的情况，还有如果周边的位置为0，则加1即为共同的边
+            for x, y in adjacent:
+                if x < 0 or y < 0 or x == len(grid) or y == len(grid[0]) or grid[x][y] == 0:
+                    res += 1
+            return res
+
+        count = 0
         for i in range(len(grid)):
             for j in range(len(grid[0])):
-                if grid[i][j]==1:
-                    num+=1
-                    # 判断上面的是不是岛
-                    if i>0 and grid[i-1][j]==1:
-                        neighbor+=1
-                    # 判断左边是不是岛
-                    if j>0 and grid[i][j-1]==1:
-                        neighbor+=1
-        # 边界数=方块数*4-相邻方块数*2
-        return num*4-neighbor*2
+                if grid[i][j] == 1:
+                    count += sum_adjacent(i, j)
+        return count
         
         
