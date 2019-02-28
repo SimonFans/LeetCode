@@ -46,7 +46,7 @@ class Solution:
             dis.append((num,p))
 
         dis.sort(key=lambda x:x[0])
-        
+        # dis => [(8, [-2, 2]), (10, [1, 3])]
         for i in range(K):
             res.append(dis[i][1])
         
