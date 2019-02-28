@@ -32,11 +32,12 @@ class Solution:
         stack=[]
         res=[]
         
+        # nums2 如果当前的number比后面的小，记录到字典，注意用while，因为可能之前的数都比后面这位小
         for num in nums2:
             while len(stack) and stack[-1]<num:
                 d[stack.pop()]=num
             stack.append(num)
-        
+        # 字典完毕后，遍历number1，将数当为key，看看在不在字典中，不在则返回-1
         for x in nums1:
             res.append(d.get(x,-1))
         
