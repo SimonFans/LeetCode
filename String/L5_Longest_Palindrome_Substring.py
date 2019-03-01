@@ -9,7 +9,35 @@ Example 2:
 
 Input: "cbbd"
 Output: "bb"
-
+    
+    
+# 中心扩散法，o(n) o(1)
+    
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        
+        def getPalindrome(string,left,right):
+            while left>=0 and right<len(string) and string[left]==string[right]:
+                left-=1
+                right+=1
+            cur=string[left+1:right]
+           
+            return cur
+        
+        if not s:
+            return ""
+        longest=""
+        for i in range(len(s)):
+            odd_str=getPalindrome(s,i,i)
+            if len(odd_str)>len(longest):
+                longest=odd_str
+            even_str=getPalindrome(s,i,i+1)
+            if len(even_str)>len(longest):
+                longest=even_str
+        return longest    
+    
+    
+    
 # 中心扩散法，o(n) o(1)
 
 class Solution:
