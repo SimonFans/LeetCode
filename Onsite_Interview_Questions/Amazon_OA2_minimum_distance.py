@@ -31,7 +31,7 @@ class solution():
                             return dist+1
                         area[row][column]=0
                         queue.append((row,column))
-            dist+=1
+             dist+=1
         return -1
 
 
