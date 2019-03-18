@@ -32,7 +32,7 @@ class Solution:
         stack=[]
         res=[]
         
-        # nums2 如果当前的number比后面的小，记录到字典，注意用while，因为可能之前的数都比后面这位小
+        # nums2 如果当前的number比后面的小，记录到字典，注意用while，因为可能之前的数都比后面这位小, 例如{1:2,2:3,3:4}
         for num in nums2:
             while len(stack) and stack[-1]<num:
                 d[stack.pop()]=num
