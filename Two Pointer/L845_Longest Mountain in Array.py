@@ -39,4 +39,16 @@ class Solution:
             base=max(end,base+1)   # in case [2,1,4,7,3,2,5] 没有上坡的情况，更新Base
         return ans
         
-        
+ 
+class Solution:
+    def longestMountain(self, A: List[int]) -> int:
+        res=0
+        for i in range(1,len(A)-1):
+            if A[i-1]<A[i] and A[i]>A[i+1]:
+                left,right=i-1,i+1
+                while left>0 and A[left-1]<A[left]:
+                    left-=1
+                while right<len(A)-1 and A[right]>A[right+1]:
+                    right+=1
+                res=max(res,right-left+1)
+        return res
