@@ -14,14 +14,14 @@ Input: [4,1,2,1,2]
 Output: 4
 
 
+## dictionary.pop(i) 将当前的key i remove
+
 class Solution:
-    def singleNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        res=0
+    def singleNumber(self, nums: List[int]) -> int:
+        hash_table = {}
         for i in nums:
-            res=res^i
-            
-        return res
+            if i in hash_table:
+                hash_table.pop(i)
+            else:
+                hash_table[i] = 1
+        return hash_table.popitem()[0]
