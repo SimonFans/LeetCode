@@ -32,21 +32,35 @@ Output: 42
 #         self.right = None
 
 class Solution:
-    def maxPathSum(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        Solution.max=-10000000
-        if root==None:
-            return 0
-        self.maxSum(root)
-        return Solution.max
+    def maxPathSum(self, root: TreeNode) -> int:
+        Solution.max=-10000
+        Solution.elements=[]
+        Solution.path=[]
         
-    def maxSum(self,root):
-        if root==None:
+        if not root:
+            return Solution.max
+        self.maxSum(root,Solution.elements)
+        Solution.elements.sort()
+        self.dfs(Solution.elements,Solution.max,0,[])
+        print(Solution.path)
+        return Solution.max
+    
+    def maxSum(self, root,u):
+        if not root:
             return 0
-        lmax=max(0,self.maxSum(root.left))
-        rmax=max(0,self.maxSum(root.right))
-        Solution.max=max(Solution.max,lmax+rmax+root.val)
+        u.append(root.val)
+        lmax=max(0,self.maxSum(root.left,u))
+        rmax=max(0,self.maxSum(root.right,u))
+        if lmax+rmax+root.val > Solution.max:
+            Solution.max=lmax+rmax+root.val
         return max(lmax,rmax)+root.val
+        
+    
+    def dfs(self, candidates, target, start, valuelist):
+        length = len(candidates)
+        if target == 0 and valuelist not in Solution.path: 
+            return Solution.path.append(valuelist)
+        for i in range(start, length):
+            if target < candidates[i]:
+                return
+            self.dfs(candidates, target - candidates[i], i + 1, valuelist + [candidates[i]])
