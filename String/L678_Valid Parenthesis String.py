@@ -15,6 +15,7 @@ Example 3:
 Input: "(*))"
 Output: True
 
+# 正向反向各扫一遍
 
 class Solution:
     def checkValidString(self, s: 'str') -> 'bool':
