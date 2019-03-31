@@ -18,19 +18,25 @@ Output: True
 
 class Solution:
     def checkValidString(self, s: 'str') -> 'bool':
-        lo = hi = 0
-        for c in s:
-            if c == '(':
-                lo += 1 
+        # left: 遇左括号和星号都加1，如果Left为0，则either没星号或者星号当作左括号与右边匹配
+        left,right=0,0
+        size=len(s)
+        for i in range(size):
+            if s[i]=='(' or s[i]=='*':
+                left+=1
             else:
-                lo-=1
-            if c != ')':
-                hi += 1 
+                left-=1
+            if left<0:
+                return False
+        if left==0:
+            return True
+        # right: 遇右括号和星号都加1，如果right为0，* match右括号, 如果right大于0，星号可为空
+        for i in range(size-1,-1,-1):
+            if s[i]==')' or s[i]=='*':
+                right+=1
             else:
-                hi-=1
-            if hi < 0: break
-            lo = max(lo, 0)
-        return lo == 0      
-Time Complexity: O(N)O(N), where NN is the length of the string. We iterate through the string once.
-
-Space Complexity: O(1)O(1), the space used by our lo and hi pointers. However, creating a new character array will take O(N)O(N) space.
+                right-=1
+            if right<0:
+                return False
+        return True
+        
