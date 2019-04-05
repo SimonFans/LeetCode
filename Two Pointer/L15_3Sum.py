@@ -19,25 +19,21 @@ A solution set is:
 ## to a new variable.
 
 class Solution:
-    def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        s = sorted(nums)  
-        
-        output = set() 
-        for k in range(len(s)): 
-            target = -s[k] 
-            i,j = k+1, len(s)-1 
-            while i < j: 
-                sum_two = s[i] + s[j] 
-                if sum_two < target: 
-                    i += 1 
-                elif sum_two > target: 
-                    j -= 1 
-                else: 
-                    output.add((s[k],s[i],s[j])) 
-                    i += 1 
-                    j -= 1 
-        return list(output) 
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res=set() # unique result
+        for k in range(len(nums)):
+            t=-nums[k]
+            i,j=k+1,len(nums)-1
+            while i<j:
+                if nums[i]+nums[j] == t:
+                    res.add((nums[k],nums[i],nums[j])) 
+                    i+=1
+                    j-=1
+                elif nums[i]+nums[j] < t:
+                    i+=1
+                else:
+                    j-=1
+        return list(res)
+                
+                    
