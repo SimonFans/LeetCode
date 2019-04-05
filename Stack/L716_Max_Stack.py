@@ -1,7 +1,6 @@
 Design a max stack that supports push, pop, top, peekMax and popMax.
 
- 
-
+---
 push(x) -- Push element x onto stack.
 pop() -- Remove the element on top of the stack and return it.
 top() -- Get the element on the top.
@@ -31,68 +30,68 @@ Number of operations won't exceed 10000.
 The last four operations won't be called when stack is empty.
 
 
-class MaxStack(object):  
-   def __init__(self):  
-     """  
-     initialize your data structure here.  
-     """  
-     self.l = []  
-     self.maxL = []  
+class MaxStack(object):
+   def __init__(self):
+     """
+     initialize your data structure here.
+     """
+     self.stack1 = []
+     self.stack2 = []
 
    def push(self, x):
-     """  
-     :type x: int  
-     :rtype: void  
-     """  
-     self.l.append(x)  
-     if not self.maxL:  
-       self.maxL.append(x)  
-     else:  
-       self.maxL.append( max(x, self.maxL[-1]) )  
-     return  
+     """
+     :type x: int
+     :rtype: void
+     """
+     self.stack1.append(x)
+     if len(self.stack2)==0 or x>=self.stack2[-1]:
+         self.stack2.append(x)
+     return
 
    def pop(self):
-     """  
-     :rtype: int  
-     """  
-     v = self.l.pop()  
-     self.maxL.pop()  
-     return v  
+     """
+     :rtype: int
+     """
+     top = self.stack1[-1]
+     self.stack1.pop()
+     if top == self.stack2[-1]:
+         self.stack2.pop()
+     return top
 
    def top(self):
-     """  
-     :rtype: int  
-     """  
-     return self.l[-1]  
+     """
+     :rtype: int
+     """
+     return self.stack1[-1]
 
    def peekMax(self):
-     """  
-     :rtype: int  
-     """  
-     return self.maxL[-1]  
+     """
+     :rtype: int
+     """
+     return self.stack2[-1]
 
    def popMax(self):
-     """  
-     :rtype: int  
-     """  
-     maxValue = self.maxL[-1]  
-     poppedValues = []  
-     v = self.pop()  
-     while v != maxValue:  
-       poppedValues.append(v)  
-       v = self.pop()  
-     for v in poppedValues[::-1]:  
-       self.push(v)  
+     """
+     :rtype: int
+     """
+     maxValue = self.stack2[-1]
+     poppedValues = []
+     v = self.stack1.pop()
+     while v != maxValue:
+       poppedValues.append(v)
+       v = self.stack1.pop()
+     for v in poppedValues[::-1]:
+       self.stack1.push(v)
      return maxValue
 
 
 stack=MaxStack()
-stack.push(5)
-stack.push(1)
-stack.push(5)
+print(stack.push(5))
+print(stack.push(1))
+print(stack.push(5))
 print(stack.top())
-stack.popMax()
-stack.top()
-stack.peekMax()
-stack.pop()
-stack.top()
+print(stack.popMax())
+print(stack.top())
+print(stack.peekMax())
+print(stack.pop())
+print(stack.top())
