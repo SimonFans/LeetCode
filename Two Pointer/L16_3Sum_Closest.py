@@ -13,12 +13,12 @@ class Solution:
         if len(nums)<3:
             return 0
         Min=nums[0]+nums[1]+nums[2]
-        for k in range(0,len(nums)-2):
-            left=k
-            mid,right=k+1,len(nums)-1
+        for left in range(0,len(nums)-2):
+            mid,right=left+1,len(nums)-1
+            
             while mid<right:
                 tmp=target-nums[left]-nums[mid]-nums[right]
-                if abs(tmp) < abs(target-Min):
+                if abs(tmp) < abs(target-Min): # compare distance
                     Min=nums[left]+nums[mid]+nums[right]
                 if nums[left]+nums[mid]+nums[right]==target:
                     return Min
@@ -27,3 +27,4 @@ class Solution:
                 else:
                     right-=1
         return Min
+        
