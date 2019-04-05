@@ -23,21 +23,27 @@ class Solution:
         :type target: int
         :rtype: List[List[int]]
         """
-        numLen, res, dict = len(nums), set(), {}
-        if numLen < 4: return []
-        nums.sort()
-        for p in range(numLen):
-            for q in range(p+1, numLen): 
-                if nums[p]+nums[q] not in dict:
-                    dict[nums[p]+nums[q]] = [(p,q)]
+        d = dict()
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                sum2 = nums[i]+nums[j]
+                if sum2 in d:
+                    d[sum2].append((i,j))
                 else:
-                    dict[nums[p]+nums[q]].append((p,q))
-        for i in range(numLen):
-            for j in range(i+1, numLen-2):
-                T = target-nums[i]-nums[j]
-                if T in dict:
-                    for k in dict[T]:
-                        if k[0] > j: res.add((nums[i],nums[j],nums[k[0]],nums[k[1]]))
-        return [list(i) for i in res]
+                    d[sum2] = [(i,j)]
+        
+        result = set()
+        for key in d:
+            value = target - key
+            if value in d:
+                list1 = d[key]
+                list2 = d[value]
+                for (i,j) in list1:
+                    for (k,l) in list2:
+                        if i!=k and i!=l and j!=k and j!=l:
+                            flist = [nums[i],nums[j],nums[k],nums[l]]
+                            flist.sort()
+                            result.add(tuple(flist))
+        return list(result)
         
         
