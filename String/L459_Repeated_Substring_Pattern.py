@@ -17,6 +17,25 @@ Input: "abcabcabcabc"
 Output: True
 Explanation: It's the substring "abc" four times. (And the substring "abcabc" twice.)
 
+ # 原理是，先提取字符串的一半，然后乘以2，看生成串和原串是否相同，相同则true，否则提取字符串三分之一，然后乘以3，以此类推
+ class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:
+        if not str and len(str)<2:
+            return False
+        
+        str_len=len(s)
+        pos=str_len //2
+        
+        while pos>0:
+            if str_len % pos ==0:
+                substr=s[:pos]
+                divisor=str_len // pos
+                if substr * divisor == s:
+                    return True
+            pos-=1
+        return False
+ 
+ 
 class Solution(object):
     def repeatedSubstringPattern(self, s):
         """
