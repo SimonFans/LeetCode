@@ -17,7 +17,7 @@ class Solution:
         
         def isMatch(word,d):
             if word in m:
-                m[word]=1
+                return m[word]
             prev=-1
             for w in word:
                 index=bisect.bisect_left(d[w],prev+1)
