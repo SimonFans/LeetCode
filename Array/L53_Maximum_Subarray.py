@@ -10,20 +10,36 @@ Follow up:
 If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 
 
+"""
+Initialize:
+    max_so_far = -2**31 - 1
+    max_ending_here = 0
+
+Loop for each element of the array
+  (a) max_ending_here = max_ending_here + a[i]
+  (b) if(max_so_far < max_ending_here)
+            max_so_far = max_ending_here
+  (c) if(max_ending_here < 0)
+            max_ending_here = 0
+  
+return max_so_far
+
+
+"""
+
+
 class Solution:
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        cmax=maxSum=nums[0]
-        for i in range(1,len(nums)):
-            cmax=max(nums[i],nums[i]+cmax)
-            maxSum=max(cmax,maxSum)
-        return maxSum
+    def maxSubArray(self, nums: List[int]) -> int:
+        max_so_far=-2**31 - 1
+        max_end_here=0
+        for number in nums:
+            max_end_here+=number
+            if max_so_far < max_end_here:
+                max_so_far=max_end_here
+            if max_end_here < 0:
+                max_end_here=0
+            
+        return max_so_far
+
         
-        
- 思路：    
- # maxSum指针记录此前所有碰到的最大值，curSum指针记录循环到当前元素这一轮的最大值。
- 当循环到元素i时，如果i+curSum < i的话，说明此前的和是负的，需要舍弃，所以将curSum的值变为i，
- 反之，将curSum的值变为i+curSum，表明当前的和还是正值,每一次遍历一个元素之后都会比较一下curSum和maxSum
+ 
