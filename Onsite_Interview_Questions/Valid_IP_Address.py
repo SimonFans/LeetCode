@@ -68,7 +68,7 @@ class Solution(object):
         return True
 
     def checkIPv6(self,IP):
-        Ip=IP.lower()
+        IP=IP.lower()
         valid16="0123456789abcdef"
         if "::" in IP: return False
         numbers=IP.split(':')
