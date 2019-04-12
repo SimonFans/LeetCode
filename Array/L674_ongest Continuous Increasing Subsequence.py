@@ -10,17 +10,22 @@ Input: [2,2,2,2,2]
 Output: 1
 Explanation: The longest continuous increasing subsequence is [2], its length is 1. 
 
+    
+# Sliding Window
+#Time Complexity: O(N), where NN is the length of nums. We perform one loop through nums.
+
+#Space Complexity: O(1), the space used by anchor and ans
+    
+    
 class Solution:
     def findLengthOfLCIS(self, nums: List[int]) -> int:
-        ans = cnt = 0
-        last = -1
-        for n in nums:
-            if n > last:
-                cnt += 1
-            else:
-                ans = max(ans, cnt)
-                cnt = 1
-            last = n
-        return max(ans, cnt)
+        
+        ans = anchor = 0
+        if len(nums)==1:
+            return 1
+        for i in range(1,len(nums)):
+            if nums[i-1] >= nums[i]: anchor = i
+            ans = max(ans, i - anchor + 1)
+        return ans
         
         
