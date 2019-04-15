@@ -63,6 +63,11 @@ class MyCalendar:
 # obj = MyCalendar()
 # param_1 = obj.book(start,end)
 
+                                                                                                                          
+Time :O(N^2)  N is the # of events booked , NlogN on random data                                                                                                                   
+Space: O(N)   N is the size of the data structures used                                                                                                                
+                                                                                                                          
+                                                                                                                          
 Method 2:
 
 class MyCalendar(object):
@@ -76,4 +81,6 @@ class MyCalendar(object):
         self.calendar.append((start, end))
         return True
         
-        
+Time Complexity: O(N^2) where N is the number of events booked. 
+
+Space Complexity: O(N), the size of the calendar.        
