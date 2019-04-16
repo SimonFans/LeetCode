@@ -20,11 +20,11 @@ class Solution:
             lines = collections.defaultdict(int)
             duplicates = 1
             for j in range(i + 1, N):
-                if points[i].x == points[j].x and points[i].y == points[j].y:
+                if points[i][0]== points[j][0] and points[i][1] == points[j][1]:
                     duplicates += 1
                     continue
-                dx = points[i].x - points[j].x
-                dy = points[i].y - points[j].y
+                dx = points[i][0] - points[j][0]
+                dy = points[i][1] - points[j][1]
                 delta = self.gcd(dx, dy)
                 lines[(dx / delta, dy / delta)] += 1
             print(lines)
@@ -33,3 +33,4 @@ class Solution:
                 
     def gcd(self, x, y):
         return x if y == 0 else self.gcd(y, x % y)
+
