@@ -39,7 +39,46 @@ Input: "-91283472332"
 Output: -2147483648
 Explanation: The number "-91283472332" is out of the range of a 32-bit signed integer.
              Thefore INT_MIN (−231) is returned.
-             
+
+    
+方法1：推荐：
+
+class Solution(object):
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        # remove space before first char and after last char
+        stripS=str.strip()  
+        
+        # if string like below, return 0
+        if stripS=='' or stripS=='+' or stripS=='-':
+            return 0
+        
+        # remove all '-' or '+' at the begining, from start match if the first char is non-num
+        s1=re.match('[^\d]+',(stripS.lstrip('-')).lstrip('+'))
+        
+        if s1 != None:
+            return 0
+        else:
+            s1=re.search('\-*\+*\d+',stripS).group()
+        
+        # '+-' case will not pass at above s1, return 0
+        if s1[0:2]=='--' or s1[0:2]=='++' or s1[0:2]=='-+':
+            return 0
+        
+        result=int(s1)
+        
+        # 2^31-1 because ignore 0 from positive side
+        if result>0:
+            return 2**31-1 if result>2**31-1 else result
+        else:
+            return -2**31 if result<-2**31 else result
+    
+    
+    
+方法2：
 
 class Solution:
     def myAtoi(self, str):
