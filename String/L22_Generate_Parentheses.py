@@ -11,7 +11,7 @@ For example, given n = 3, a solution set is:
 ]
 
 
-class Solution:
+class Solution(object):
     def generateParenthesis(self, n):
         """
         :type n: int
@@ -24,8 +24,10 @@ class Solution:
         return res
     
     def helper(self,l,r,item,res):
+        #剩余右括号数目小于剩余左括号数目，()()) filter 这种情况在append数组前
         if r<l:
             return
+        # 满足条件的插入
         if l==0 and r==0:
             res.append(item)
         if l>0:
