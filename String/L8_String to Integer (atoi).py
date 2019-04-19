@@ -57,7 +57,7 @@ class Solution(object):
             return 0
         
         # remove all '-' or '+' at the begining, from start match if the first char is non-num
-        s1=re.match('[^\d]+',(stripS.lstrip('-')).lstrip('+'))
+        s1=re.match('[^\d]+',stripS.lstrip('-').lstrip('+'))
         
         if s1 != None:
             return 0
