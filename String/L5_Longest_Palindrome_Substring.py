@@ -11,55 +11,32 @@ Input: "cbbd"
 Output: "bb"
     
     
-# 中心扩散法，o(n) o(1)
+# 中心扩散法，分奇偶情况,每次传基数长度之后偶数长度
+# O(n) O(1)
     
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         
-        def getPalindrome(string,left,right):
-            while left>=0 and right<len(string) and string[left]==string[right]:
+        def getPalindrome(s,left,right):
+            while left>=0 and right<len(s) and s[left]==s[right]:
                 left-=1
                 right+=1
-            cur=string[left+1:right]
-           
-            return cur
-        
+            return s[left+1:right]
+            
+        #(1) 判断字符串是否为空
         if not s:
             return ""
+        
+        #(2) define result as an empty string 
         longest=""
         for i in range(len(s)):
-            odd_str=getPalindrome(s,i,i)
-            if len(odd_str)>len(longest):
-                longest=odd_str
-            even_str=getPalindrome(s,i,i+1)
-            if len(even_str)>len(longest):
-                longest=even_str
-        return longest    
-    
-    
-    
-# 中心扩散法，o(n) o(1)
+            odd_one=getPalindrome(s,i,i)
+            if len(odd_one)>len(longest):
+                longest=odd_one
+            even_one=getPalindrome(s,i,i+1)
+            if len(even_one)>len(longest):
+                longest=even_one
+        return longest
+        
 
-class Solution:
-    def longestPalindrome(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        if s==None or len(s)==0:
-            return s
-        self.res=""
-        for i in range(len(s)):
-            self.helper(s,i,i)
-            self.helper(s,i,i+1)
-        return self.res
-        
-        
-    def helper(self,s,left,right):
-        while left>=0 and right<len(s) and s[left]==s[right]:
-            left-=1
-            right+=1
-        cur=s[left+1:right]
-        if len(cur) > len(self.res):
-            self.res=cur
-        return self.res        
+            
