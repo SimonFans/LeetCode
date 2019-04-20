@@ -17,7 +17,36 @@ Output: 3
 Explanation: The answer is "wke", with the length of 3. 
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
+Method(1)
+    
+class Solution:
+    def lengthOfLongestSubstring(self, s: 'str') -> 'int':
+        
+        start = -1
+        longest_len = 0
+        d = {}
+        # i: index
+        
+        for i in range(len(s)):
+            
+            if s[i] in d and d[s[i]]>start:
+                start = d[s[i]]
+                d[s[i]] = i
 
+            else:
+                d[s[i]]=i
+                if i - start > longest_len:
+                    longest_len = i - start
+        return longest_len
+
+# d[s[i]]>start? => start moves to first m when it finds the second m, 
+# when second t finds, start position update only when first t position after start pointer
+【example】
+# t   m     m    z    u   x   t
+#   start
+
+
+Method (2)
 
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
@@ -39,19 +68,4 @@ class Solution(object):
 
   // HashMap method   
   
-class Solution:
-    def lengthOfLongestSubstring(self, s: 'str') -> 'int':
-        
-        ans=0
-        Map_=dict()
-        i=0
-        
-        for j in range(len(s)):
-            if s[j] in Map_:
-                i=max(Map_.get(s[j]),i)
-            ans=max(ans,j-i+1)
-            Map_[s[j]]=j+1
-            
-        return ans
 
-      
