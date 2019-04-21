@@ -14,26 +14,22 @@ Given an integer n where 1 ≤ n ≤ 30, generate the nth term of the count-and-
 Note: Each term of the sequence of integers will be represented as a string.
 
 class Solution:
-    def countAndSay(self, n):
-        """
-        :type n: int
-        :rtype: str
-        """
-        i=1
-        res="1"
-        while i<n:
-            count=0
-            sb=""
-            c=res[0]
-            for j in range(len(res)+1):
-                if j!=len(res) and res[j]==c:
-                    count+=1
-                else:
-                    sb+=str(count)
-                    sb+=c
-                    if j!=len(res):
-                        count=1
-                        c=res[j]
-            res=sb
+    def countAndSay(self, n: int) -> str:
+        
+        seq="1"
+        # take n=4 example, loop 3 times get final result on line input id=4
+        for _ in range(n-1):
+            seq=self.getNext(seq)
+        return seq
+    
+    def getNext(self,seq):
+        i,next_seq=0,""
+        while i < len(seq):
+            counter=1
+            # no overfill, and count how many same char
+            while i<len(seq)-1 and seq[i]==seq[i+1]:
+                counter+=1
+                i+=1
+            next_seq+=str(counter)+seq[i]
             i+=1
-        return res
+        return next_seq
