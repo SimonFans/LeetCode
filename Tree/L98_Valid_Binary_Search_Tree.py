@@ -22,8 +22,30 @@ Example 2:
 Output: false
 Explanation: The input is: [5,1,4,null,null,3,6]. The root node's value
              is 5 but its right child's value is 4.
-             
-             
+
+            
+Method 1: idea: return false if root value is smaller than min(left side tree), if root value is greater than max(right side tree)
+    
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        return self.valid(root,float('-inf'),float('inf'))
+        
+    def valid(self,root,min,max):
+        if not root:
+            return True
+        
+        if root.val>=max or root.val<=min:
+            return False
+        
+        return self.valid(root.left,min,root.val) and self.valid(root.right,root.val,max)
+    
+Method 2: Inorder Traversal then for loop compare if the first one is smaller than the second one             
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
