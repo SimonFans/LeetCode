@@ -53,4 +53,17 @@ class Solution:
                 else: min_right=min(nums2[j],nums1[i])
             
                 return (max_left+min_right)/2.0
-            
+  
+
+
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        l = sorted(nums1+nums2)
+        a = len(l)
+
+        if a%2==0:
+            return (l[a//2-1]+l[a//2])/2.0
+        else:
+            return l[a//2]
+        
+        
