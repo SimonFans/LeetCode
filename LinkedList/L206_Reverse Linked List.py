@@ -6,6 +6,7 @@ Input: 1->2->3->4->5->NULL
 Output: 5->4->3->2->1->NULL
 
 
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
@@ -13,18 +14,16 @@ Output: 5->4->3->2->1->NULL
 #         self.next = None
 
 class Solution:
-    def reverseList(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
-        cur=head
+    def reverseList(self, head: ListNode) -> ListNode:
+        
         pre=None
-        while cur:
-            nextNode=cur.next
-            cur.next=pre
-            pre=cur
-            cur=nextNode
+        
+        while head:
+            nex=head.next
+            head.next=pre
+            pre=head
+            head=nex
+        
         return pre
         
         
