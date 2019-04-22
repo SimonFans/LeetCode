@@ -11,17 +11,20 @@ Input string may contain leading or trailing spaces. However, your reversed stri
 You need to reduce multiple spaces between two words to a single space in the reversed string.
 Follow up: For C programmers, try to solve it in-place in O(1) space.
 
-class Solution(object):
-    def reverseWords(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        if len(s)==0 or s==None:
-            return s
-        res=[]
-        input=s.split()
-        size=len(input)-1
-        for i in range(size,-1,-1):
-            res.append(input[i])
-        return ' '.join(res)
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        result=''
+        
+        # remove trailing and split by one or more multiple spaces
+        # [the,sky,is,blue]
+        str_list=s.strip().split()
+        
+        if str_list==[]:
+            return ''
+        
+        for i in range(1,len(str_list)):
+            result+=str_list[len(str_list)-i]+' '
+        
+        result+=str_list[0]
+        
+        return result
