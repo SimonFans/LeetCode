@@ -24,10 +24,12 @@ class Solution(object):
         转化成计算有多少个5 
         """ 
         
-        res=0
-        while n:
+        # idea: find # of 5 => # of 10 => # of 0s
+        
+        result=0
+        while n!=0:
+            result+=n//5
             n=n//5
-            res+=n
-        return res
+        return result
         
         
