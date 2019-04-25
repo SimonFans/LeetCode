@@ -6,6 +6,7 @@ Example 1:
 
 Input: haystack = "hello", needle = "ll"
 Output: 2
+
 Example 2:
 
 Input: haystack = "aaaaa", needle = "bba"
@@ -16,25 +17,16 @@ What should we return when needle is an empty string? This is a great question t
 
 For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
 
-class Solution(object):
-    def strStr(self, haystack, needle):
-        """
-        :type haystack: str
-        :type needle: str
-        :rtype: int
-        
-        """
-        
-        if not needle:
-            return 0
-        
-        for i in xrange(len(haystack)):
-            if haystack[i:i+len(needle)] == needle:
+Solution 1:
+    
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        for i in range(len(haystack)-len(needle)+1):
+            if haystack[i:i+len(needle)]==needle:
                 return i
         return -1
-        
 
-思路二
+Solution 2:
 
 扫描haystack，当遇到与needle首字符相同的位置时，检查haystack从该位置开始的与needle长度相同的块，与needle是否相同。
 
