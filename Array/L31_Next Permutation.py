@@ -10,7 +10,7 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 3,2,1 → 1,2,3
 1,1,5 → 1,5,1
 
-#方法：从后往前找找第一个升序并且标记，不如14532， 找到4，然后和5换，换完后的序列进行reverse计算
+#方法：从后往前找找第一个升序并且标记，比如14532， 找到4，然后和5换，换完后的序列进行reverse计算
 
 
 class Solution(object):
