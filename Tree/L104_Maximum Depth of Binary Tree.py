@@ -15,6 +15,9 @@ Given binary tree [3,9,20,null,null,15,7],
    15   7
 return its depth = 3.
 
+
+Solution:
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -23,15 +26,12 @@ return its depth = 3.
 #         self.right = None
 
 class Solution:
-    def maxDepth(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        if root is None:
-            return 0
-        left=1+self.maxDepth(root.left)
-        right=1+self.maxDepth(root.right)
-        return max(left,right)
+    def maxDepth(self, root: 'TreeNode') -> 'int':
+        if root is None: 
+            return 0 
+      
+        left=self.maxDepth(root.left)
+        right=self.maxDepth(root.right)
+        return 1+max(left,right)
         
         
