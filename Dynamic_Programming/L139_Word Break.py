@@ -20,7 +20,7 @@ Example 3:
 Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
 Output: false
 
-
+# Method 1
 class Solution(object):
     def wordBreak(self, s, wordDict):
         """
@@ -38,4 +38,31 @@ class Solution(object):
                     d[i]=True
         return d[len(s)]
         
+
+# Method 2        
+class Solution(object):
+    def wordBreak(self,s,wordDict):
+        
+        queue=[0]  # 初始字符串下标
+        ls=len(s)  # 字符串长度
+        lenList=[l for l in set(map(len,wordDict))] # List中每段单词的长度
+        visited = [0 for _ in range(0,ls+1)] # 记录访问到哪里了
+        print("lenList",lenList)
+        print("visited",visited)
+        
+        while queue:
+            start=queue.pop(0)
+            for l in lenList:
+                if s[start:start+l] in wordDict:
+                    if start+l==ls:
+                        return True
+                    if visited[start+l]==0:
+                        queue.append(start+l)
+                        visited[start+l]=1   
+        return False
+
+       
+s="leetcode"
+wordDict=["leet","code"]
+print(Solution().wordBreak(s,wordDict))
         
