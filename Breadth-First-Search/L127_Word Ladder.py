@@ -9,6 +9,9 @@ All words have the same length.
 All words contain only lowercase alphabetic characters.
 You may assume no duplicates in the word list.
 You may assume beginWord and endWord are non-empty and are not the same.
+
+
+
 Example 1:
 
 Input:
@@ -20,6 +23,8 @@ Output: 5
 
 Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
 return its length 5.
+
+
 Example 2:
 
 Input:
