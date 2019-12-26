@@ -38,18 +38,21 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-       
-        # 保证list中是unique否则后面会重复查找
-        wordList = set(wordList)
-        queue = collections.deque([[beginWord, 1]])
+        # ensure no duplicated word in the list
+        wordList=set(wordList)
+        # insert beginWord into the queue, mark 1 means one time
+        queue=collections.deque()
+        queue.append([beginWord,1])
         while queue:
-            word, length = queue.popleft()
-            if word == endWord:
+            word,length=queue.popleft()
+            # when the word is same as endWord, return length
+            if word==endWord:
                 return length
             for i in range(len(word)):
-                for c in 'abcdefghijklmnopqrstuvwxyz':
-                    next_word = word[:i] + c + word[i+1:]
-                    if next_word in wordList:
-                        wordList.remove(next_word)
-                        queue.append([next_word, length + 1])
+                for c in string.ascii_lowercase:
+                    w=word[:i]+c+word[i+1:]
+                    if w in wordList:
+                        wordList.remove(w)
+                        queue.append([w,length+1])
         return 0
+    
