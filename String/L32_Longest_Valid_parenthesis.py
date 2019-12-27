@@ -28,6 +28,7 @@ class Solution:
             if s[i]=='(':
                 stack.append(i)
             else:
+                # if is ')', start pointer moves with i
                 if len(stack)==0:
                     start=i
                 else:
