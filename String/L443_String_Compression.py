@@ -48,20 +48,26 @@ Since the character "a" does not repeat, it is not compressed. "bbbbbbbbbbbb" is
 Notice each digit has it's own entry in the array.
 
 
-class Solution(object):
-    def compress(self, chars):
-        """
-        :type chars: List[str]
-        :rtype: int
-        """
-        
-        rptr, wptr = 0, 0
-        while rptr < len(chars):
-            ch, f = chars[rptr], 0
-            while rptr < len(chars) and chars[rptr] == ch:
-                rptr, f = rptr+1, f+1
-            chars[wptr], wptr = ch, wptr + 1
-            if f > 1:
-                for c in str(f):
-                    chars[wptr], wptr = c, wptr + 1
-        return wptr
+# using only O(1) extra space
+# i: 更改后位置长度的下标
+# j: 当前位置的下标
+# counter: 统计字出现的字数
+
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        n=len(chars)
+        i=0
+        counter=1
+        for j in range(1,n+1):
+            if j<n and chars[j-1]==chars[j]:
+                counter+=1
+            else:
+                chars[i]=chars[j-1]
+                i+=1
+                if counter>1:
+                    for m in str(counter):
+                        chars[i]=m
+                        i+=1
+                counter=1
+        return i
+       
