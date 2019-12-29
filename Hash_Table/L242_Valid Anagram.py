@@ -9,17 +9,19 @@ Example 2:
 Input: s = "rat", t = "car"
 Output: false
 
+import collections
+
 class Solution:
-    def isAnagram(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-        dict1=dict()
-        dict2=dict()
-        for i in s:
-            dict1[i]=dict1.get(i,0)+1
-        for j in t:
-            dict2[j]=dict2.get(j,0)+1
-        return dict1==dict2
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s)!=len(t):
+            return False
+        dic=collections.defaultdict(int)
+        for word1 in s:
+            dic[word1]+=1
+        for word2 in t:
+            if word2 in dic:
+                dic[word2]-=1
+        for k, v in dic.items():
+            if v!=0:
+                return False
+        return True
