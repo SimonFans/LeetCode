@@ -59,7 +59,7 @@ class Solution:
             return None
         while len(lists)>1:
             nextLists = []
-            for i in range(len(lists)-1,2):
+            for i in range(0,len(lists)-1,2):
                 nextLists.append(self.mergeLists(lists[i],lists[i+1]))
             # 如果lists长度为奇数，则做完上面的for循环，还要再加上list中的最后一部分
             if len(lists)%2==1:
