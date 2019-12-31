@@ -6,20 +6,23 @@ Example:
 Input: [0,1,0,2,1,0,1,3,2,1,2,1]
 Output: 6
 
+# 双指针
+
 class Solution:
     def trap(self, height: List[int]) -> int:
-        # 双指针
-        max_left,max_right,ans=0,0,0
-        L, R=0, len(height)-1
-        while L<R:
-            if height[L]<=height[R]:
-                max_left=max(max_left,height[L])
-                ans+=max_left-height[L]
-                L+=1
+        l,r=0,len(height)-1
+        left_height_max=0
+        right_height_max=0
+        ans=0
+        while l<r:
+            if height[l]<height[r]:
+                left_height_max=max(left_height_max,height[l])
+                ans+=left_height_max-height[l]
+                l+=1
             else:
-                max_right=max(max_right,height[R])
-                ans+=max_right-height[R]
-                R-=1
+                right_height_max=max(right_height_max,height[r])
+                ans+=right_height_max-height[r]
+                r-=1
         return ans
         
         
