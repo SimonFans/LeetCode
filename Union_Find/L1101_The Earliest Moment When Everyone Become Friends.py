@@ -34,23 +34,26 @@ It's guaranteed that all timestamps in logs[i][0] are different.
 logs are not necessarily ordered by some criteria.
 logs[i][1] != logs[i][2]
 
+"""
+find(x):寻找x的根结点，当调用find的时候，实际上会施加一个tree compression method,把所有一条路上的节点都指向parent
+rank: 树的复杂程度，通常把rank小的贴到rank大的上面去
+"""
 
 
 class UnionFindSet(object):
+    # 初始化，roots存储所有节点信息，当前全部是指向自己，rank全部为0，意义为树的混乱程度
     def __init__(self, n):
         self.roots = [i for i in range(n)] # [0 1 2 3 4 5]
         self.rank = [0 for i in range(n)]  # [0 0 0 0 0 0]
-        self.count = 0
-    
-    def find(self, member):
-        tmp = []
-        while member != self.roots[member]:
-            tmp.append(member)
-            member = self.roots[member]
-        for root in tmp:
-            self.roots[root] = member
-        return member
         
+    # 找到最早的parent结点是谁
+    def find(self, member):
+        if member!=self.roots[member]:
+            member=self.find(self.roots[member])
+        return member
+    
+    # 合并，当parent节点不同时，rank小的向rank大的靠拢，大的移动不方便，如果parent节点相同，随机指派一个作为parent节点，被指派为parent的节点rank+=1
+    
     def union(self, p, q):
         parentP = self.find(p)
         parentQ = self.find(q)
@@ -61,14 +64,15 @@ class UnionFindSet(object):
                 self.roots[parentP] = parentQ
             else:
                 self.roots[parentQ] = parentP
-                self.rank[parentP] -= 1
-            self.count -= 1
+                self.rank[parentP] += 1
+            
     
     def check(self):
-        # print self.roots
+        # flag 为roots[0]所对应节点的parent节点
         flag = self.find(self.roots[0])
-        for i in self.roots:
-            if self.find(i) != flag:
+        # 对于每一个在roots中的节点，看看是否都最终都归为一个parent
+        for node in self.roots:
+            if self.find(node) != flag:
                 return False
         return True
 
@@ -79,7 +83,7 @@ class Solution(object):
         :type N: int
         :rtype: int
         """
-        logs = sorted(logs, key = lambda x:x[0])
+        logs.sort(key=lambda x:x[0])
         ufs = UnionFindSet(N)
         for time, x, y in logs:
             ufs.union(x, y)
