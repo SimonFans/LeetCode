@@ -70,8 +70,6 @@ class UnionFindSet(object):
         for i in self.roots:
             if self.find(i) != flag:
                 return False
-            print(self.roots)
-            print(self.rank)
         return True
 
 class Solution(object):
