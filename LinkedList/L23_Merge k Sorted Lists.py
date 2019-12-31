@@ -17,30 +17,34 @@ Output: 1->1->2->3->4->4->5->6
 #         self.next = None
 
 
-# only python no python3 since it uses heapq library
+# heap法解题 
+from heapq import *
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-class Solution(object):
-    def mergeKLists(self, lists):
-        """
-        :type lists: List[ListNode]
-        :rtype: ListNode
-        """
-       # from heapq import heappush, heappop, heapify
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        cur=head=ListNode(0)
         heap = []
-        for node in lists:
-            if node: 
-                heap.append((node.val, node))
-        #list to heap
-        heapq.heapify(heap)
-        dummy=ListNode(0)
-        cur=dummy
-        while heap:
-            pop=heapq.heappop(heap)
-            cur.next=ListNode(pop[0])
+        count=0
+        for sorted_list in lists:
+            if sorted_list: 
+                count+=1
+                heapq.heappush(heap,(sorted_list.val, count, sorted_list))
+        
+        
+        while len(heap)>0:
+            _,_,cur.next=heapq.heappop(heap) 
             cur=cur.next
-            if pop[1].next:
-                heapq.heappush(heap,(pop[1].next.val,pop[1].next))
-        return dummy.next
+            
+            if cur.next is not None:
+                count+=1
+                heapq.heappush(heap,(cur.next.val,count,cur.next))
+            
+        return head.next
         
         
 #### Method2 divide and conquer nlogn
