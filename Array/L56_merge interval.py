@@ -12,25 +12,23 @@ Output: [[1,5]]
 Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
 
-# Definition for an interval.
-# class Interval:
-#     def __init__(self, s=0, e=0):
-#         self.start = s
-#         self.end = e
+"""
+<1> sort by first element in each interval say as x[0]
+<2> if result list is empty or previous interval end < next interval start,
+append current interval to the result list
+else which means they ovelapped each other, we will select the max(previous.end,next.end)
+then update the previous end with max value
+"""
+
 
 class Solution:
-    def merge(self, intervals):
-        """
-        :type intervals: List[Interval]
-        :rtype: List[Interval]
-        """
-        intervals.sort(key=lambda x: x.start)
-        merged=[]
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda x:x[0])
+        merge_res=[]
         for interval in intervals:
-            if not merged or merged[-1].end<interval.start:
-                merged.append(interval)
+            if len(merge_res)==0 or merge_res[-1][1]<interval[0]:
+                merge_res.append(interval)
             else:
-                merged[-1].end=max(interval.end,merged[-1].end)
-        return merged
-        
+                merge_res[-1][1]=max(merge_res[-1][1],interval[1])
+        return merge_res
         
