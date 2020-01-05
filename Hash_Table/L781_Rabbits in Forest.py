@@ -24,28 +24,37 @@ Each answers[i] will be an integer in the range [0, 999].
 
 
 """
-思路： 
-1. 找山峰A[i]. 满足条件 A[i-1]<A[i] and A[i]>A[i+1]，即A[i]比它的左边和右边都大
-2. 如果没有，返回0. 如果有，将A[i]左侧标为left, 右侧标为right.
-3. 写两个while分别对left and right 进行讨论，目的是找到最左边和最右边
-4. 计算left和right之间的最大距离
+思路：
+
+用hashmap
+
+dict[num] = n ,统计有n个说 num个别的兔子和自己颜色相同，如果n <= num+1,则这n个兔子颜色 相同，
+
+即每num+1 数量组可以看成一个颜色（1组），计算n可以分成几组
+
+如 answers = [10, 10, 10]
+
+3只兔子说还有10个别的兔子和自己颜色一样-》dic[10] = 3
+
+有11个兔子可以看成一个颜色比如黄色，3<11 可以看成同一组的颜色，所以至少有1组黄色的兔子-》11只
+
+如果dic[10] = 13 > 11,那么11只是一组比如黄色，还有2只是另外一个11人组 比如红色，那么至少2组 -》22只 = 2*11
 
 
 """
 
+import collections
+import math
 
 class Solution:
-    def longestMountain(self, A: List[int]) -> int:
+    def numRabbits(self, answers: List[int]) -> int:
+        if len(answers)==0:
+               return res
+        dic=collections.defaultdict(int)
         res=0
-        for i in range(1,len(A)-1):
-            if A[i-1]<A[i] and A[i]>A[i+1]:
-                left,right=i-1,i+1
-                while left>0 and A[left-1]<A[left]:
-                    left-=1
-                while right<len(A)-1 and A[right]>A[right+1]:
-                    right+=1
-                res=max(res,right-left+1)
+        for answer in answers:
+            dic[answer]+=1
+        for key, value in dic.items():
+            res+=math.ceil(value/(key+1))*(key+1)
         return res
-        
-        
         
