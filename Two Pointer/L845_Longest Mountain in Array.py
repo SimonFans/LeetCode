@@ -23,23 +23,18 @@ Note:
 0 <= A.length <= 10000
 0 <= A[i] <= 10000
 
-class Solution:
-    def longestMountain(self, A: List[int]) -> int:
-        N=len(A)
-        ans=base=0
-        while base <N:
-            end=base
-            if end+1 < N and A[end]<A[end+1]:
-                while end+1 < N and A[end]<A[end+1]:
-                    end+=1
-                if end+1 < N and A[end]>A[end+1]:
-                    while end+1 < N and A[end]>A[end+1]:
-                        end+=1
-                    ans=max(ans,end-base+1) # [2,3] 没有下坡就不算结果
-            base=max(end,base+1)   # in case [2,1,4,7,3,2,5] 没有上坡的情况，更新Base
-        return ans
-        
- 
+
+"""
+思路： 
+1. 找山峰A[i]. 满足条件 A[i-1]<A[i] and A[i]>A[i+1]，即A[i]比它的左边和右边都大
+2. 如果没有，返回0. 如果有，将A[i]左侧标为left, 右侧标为right.
+3. 写两个while分别对left and right 进行讨论，目的是找到最左边和最右边
+4. 计算left和right之间的最大距离
+
+
+"""
+
+
 class Solution:
     def longestMountain(self, A: List[int]) -> int:
         res=0
@@ -52,3 +47,5 @@ class Solution:
                     right+=1
                 res=max(res,right-left+1)
         return res
+        
+
