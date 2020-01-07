@@ -17,6 +17,14 @@ nums2 = [3, 4]
 
 The median is (2 + 3)/2 = 2.5
 
+"""
+idea:
+     left_part          |        right_part
+A[0], A[1], ..., A[i-1]  |  A[i], A[i+1], ..., A[m-1]
+B[0], B[1], ..., B[j-1]  |  B[j], B[j+1], ..., B[n-1]
+
+
+"""
 
 class Solution:
     def findMedianSortedArrays(self, nums1, nums2):
@@ -26,6 +34,7 @@ class Solution:
         :rtype: float
         """
         m,n = len(nums1),len(nums2)
+        # 将长度小的作为nums1,对它实施二分法查找
         if m>n:
             nums1,nums2,m,n =nums2,nums1,n,m
         # imin: short array start points
@@ -40,14 +49,19 @@ class Solution:
             # i is too small, must increase it
             if i<m and nums2[j-1]>nums1[i]:
                 imin=i+1
+            # 现在说名 i 太大，应该减小
             elif i>0 and nums1[i-1]>nums2[j]:
                 imax=i-1
             else:
+                # i 的值已经确定，现在找中间值
+                # 确定左边界情况
                 if i==0: max_left=nums2[j-1]
                 elif j==0: max_left=nums1[i-1]
                 else: max_left=max(nums1[i-1],nums2[j-1])
+                # 奇数的情况下    
                 if (m+n)%2==1:
                     return max_left
+                # 确定右边界情况
                 if i==m: min_right=nums2[j]
                 elif j==n: min_right=nums1[i]
                 else: min_right=min(nums2[j],nums1[i])
