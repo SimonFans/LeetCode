@@ -46,7 +46,7 @@ class Solution:
             l1=l1.next
             p=p.next
         if flag==1:
-            p.next=ListNode(1)
+            p.next=ListNode(flag)
         return dummy.next
         
         
