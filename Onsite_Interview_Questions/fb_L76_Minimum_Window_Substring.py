@@ -10,36 +10,36 @@ If there is no such window in S that covers all characters in T, return the empt
 If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
 
 
-class Solution(object):
-    def minWindow(self, s, t):
-        """
-        双指针
-        :type s: str
-        :type t: str
-        :rtype: str
-        """
-        total=len(t) # T中的长度
-        cnt=dict()   #初始化S和T中都为0，之后T中的加1
-        start=0      # 记录开始的位置
-        mini=2000000 # set the default minimum length
+from collections import defaultdict
+
+
+
+class Solution():
+    def minWindow(self,s,t):
+        cnt=defaultdict(int)
+        t_length=len(t)
+        min_val=200000
+        # 记录j的位置
+        start=0
+        
         for i in s:
             cnt[i]=0
         for i in t:
-            cnt[i]=cnt.get(i,0)+1
+            cnt[i]+=1
+        
+        # 起始位置，之后会变动
         j=0
         for i in range(len(s)):
-            if cnt.get(s[i],0)>0:
-                total-=1
-            cnt[s[i]]=cnt.get(s[i],0)-1
-            while total==0:
-                if i-j+1<mini:
-                    mini=i-j+1
+            if cnt[s[i]]>0:
+                t_length-=1
+            cnt[s[i]]-=1
+            
+            while t_length==0:
+                if i-j+1<min_val:
+                    min_val=i-j+1
                     start=j
-
-                cnt[s[j]]=cnt.get(s[j],0)+1
-                if cnt.get(s[j],0)>0:
-                    total+=1
-                j+=1
-
-        return '' if mini==2000000 else s[start:start+mini]
-    
+                cnt[s[j]]+=1
+                if cnt[s[j]]>0:
+                    t_length+=1
+                j+=1   
+        return '' if min_val==200000 else s[start:start+min_val]
