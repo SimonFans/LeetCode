@@ -41,3 +41,5 @@ class Solution():
                     t_length+=1
                 j+=1   
         return '' if min_val==200000 else s[start:start+min_val]
+    
+    
