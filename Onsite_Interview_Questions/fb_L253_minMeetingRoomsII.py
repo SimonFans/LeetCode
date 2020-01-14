@@ -5,6 +5,32 @@ For example,
 Given [[0, 30],[5, 10],[15, 20]],
 return 2.
 
+# Method 1: heapq
+
+from heapq import heappush, heappop
+
+class solution:
+    def minMeetingRoomsII(self,intervals):
+        
+        # [[0,30],[5,10],[15,20]]
+        starts_sort=sorted(intervals, key=lambda x: x[0])   
+        
+        # heap中只存放结束时间，如果结束时间比当前时间早，我们就延长为当前的结束时间，否则压入房间当前结束时间
+        heap=[]
+        
+        for i in range(len(starts_sort)):
+            while heap and heap[0]<starts_sort[i][1]:
+                heappop(heap)
+                
+            heappush(heap,starts_sort[i][1])
+        
+        return len(heap)
+    
+intervals=[[0,30],[5,10],[15,20]]
+print(solution().minMeetingRoomsII(intervals))
+
+# Method 2:
+
 class solution:
     def minMeetingRoomsII(self,test):
 
