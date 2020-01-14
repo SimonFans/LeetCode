@@ -12,8 +12,6 @@ If there is such window, you are guaranteed that there will always be only one u
 
 from collections import defaultdict
 
-
-
 class Solution():
     def minWindow(self,s,t):
         cnt=defaultdict(int)
