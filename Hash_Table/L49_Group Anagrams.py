@@ -16,7 +16,7 @@ Output:
 2. 将每个list变为tuple
 3. 建立一个值保存为list的字典，对于每一个相同的tuple，append上对应的字符串
 s="bae"
-sorted(s) => ['a','b','e'] 
+sorted(s) => ['a','b','e'] , sorted(字符串) 返回list, 我们再把''.join(['a','b','c'])='abc'
 tuple(sorted(s)) => ('a','b','e')
 dic[tuple(sorted(s))].append(s)
 """
@@ -26,6 +26,7 @@ class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         res=collections.defaultdict(list)
         for s in strs:
-            temp_tuple=tuple(sorted(s))
+            #temp_tuple=tuple(sorted(s))
+            temp_tuple=''.join(sorted(s))
             res[temp_tuple].append(s)
         return res.values()
