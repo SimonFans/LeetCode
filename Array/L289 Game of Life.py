@@ -63,8 +63,10 @@ class Solution:
             if 0<=r<M and 0<=c<N:
                 if board[r][c]==1:
                     countLive+=1
+        # case (1) and (3)
         if countLive<2 or countLive>3:
             return 2
+        # case (2) and (4)
         elif board[i][j]==1 or (board[i][j]==0 and countLive==3):
             return 1
         else:
