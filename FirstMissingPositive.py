@@ -31,6 +31,7 @@ class Solution:
         for j in range(n):
             if nums[j]!=j+1:
                 return j+1
+        # if [1,2,3], return 4
         return n+1
 
 A=[3,4,-1,1]
