@@ -31,8 +31,8 @@ class Solution:
         res=[] # result
         while True:
             if direction==0:  # if go right
-                for i in range(up,right+1):
-                    res.append(matrix[up][i])
+                for i in range(left,right+1):
+                    res.append(matrix[left][i])
                 up+=1
             if direction==1: # if go down
                 for i in range(up,down+1):
