@@ -28,7 +28,7 @@ Note:
 -10000 < points[i][0] < 10000
 -10000 < points[i][1] < 10000
 
-
+# method 1:
 class Solution:
     def kClosest(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
         n=sorted(points, key=lambda p: p[0]**2 + p[1]**2)[:K]
@@ -36,7 +36,7 @@ class Solution:
 
      
 
-# method 2
+# method 2:
 class Solution:
     def kClosest(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
         dis=[]
