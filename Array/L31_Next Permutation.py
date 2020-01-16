@@ -19,20 +19,22 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        
+        # 从后向前寻找第一个升序，标记为P，记录下标值，跳出
         p=-1
         for i in range(len(nums)-2,-1,-1):
             if nums[i]<nums[i+1]:
                 p=i
                 break
+        # 如果list中的数字全是降序排列，则按照题目要求取反
         if p==-1:
             nums.reverse()
-            
+        # 如果找到升序值，从后向前便利到P，只要找到1个后面的值比P位置值大就交换，然后跳出   
         else:
             for j in range(len(nums)-1,p,-1):
                 if nums[j]>nums[p]:
                     nums[j],nums[p]=nums[p],nums[j]
                     break
+            # 确定原生序值后面的起始位和结束位，交换
             left,right=p+1,len(nums)-1
         
             while left<right:
