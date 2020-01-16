@@ -19,7 +19,7 @@ class solution(object):
                     else:
                         res[susItem]=res.get(susItem)+1
             else:
-                res[item[0]]=1
+                res[item[0]]=0
         return res
         
         
