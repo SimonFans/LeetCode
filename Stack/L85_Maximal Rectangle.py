@@ -29,21 +29,24 @@ class Solution:
             max_result=max(max_result,area)
         return max_result
     
-    def largestRectangleArea(self, heights: List[int]) -> int:
-        res=0
-        stack=[]
-        # just in case input is [1], only one element, otherwise return 0 is wrong
-        heights.append(0)
-        N=len(heights)
-        for i in range(N):
-            if not stack or heights[i]>heights[stack[-1]]:
-                stack.append(i)
-            else:
-                while stack and heights[i]<=heights[stack[-1]]:
-                    h=heights[stack[-1]]
-                    stack.pop()
-                    w=i if not stack else i-stack[-1]-1
-                    res=max(res,w*h)
-                stack.append(i)
+    def largestRectangleArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if not height:
+            return 0
+            
+        res = 0
+        stack = []
+        # 将堆栅内的元素都移出
+        height.append(-1)
+        for i in range(len(height)):
+            current = height[i]
+            while len(stack) != 0 and current <= height[stack[-1]]:
+                h = height[stack.pop()]
+                w = i if len(stack) == 0 else i - stack[-1] - 1
+                res = max(res, h * w)
+            stack.append(i)
         return res
         
