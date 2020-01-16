@@ -32,6 +32,7 @@ class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         res=0
         stack=[]
+        # just in case input is [1], only one element, otherwise return 0 is wrong
         heights.append(0)
         N=len(heights)
         for i in range(N):
