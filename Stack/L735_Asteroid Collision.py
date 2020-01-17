@@ -41,17 +41,16 @@ Each asteroid will be a non-zero integer in the range [-1000, 1000].
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         stack=[]
-        
-        for ast in asteroids:
-            
-            while stack and ast<0 and stack[-1]>=0:
+        for cur in asteroids:
+            # only when pre is postive-> and cur is negative <-, then can meet
+            while stack and cur<0 and stack[-1]>0:
                 pre=stack.pop()
-                if pre==-ast:
-                    ast=None
+                if pre==-cur:
+                    cur=None
                     break
-                elif -ast<pre:
-                    ast=pre
-            if ast is not None:
-                stack.append(ast)
+                elif pre>-cur:
+                    cur=pre
+            if cur is not None:
+                stack.append(cur)
         return stack
         
