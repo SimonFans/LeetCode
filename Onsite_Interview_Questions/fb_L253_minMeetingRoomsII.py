@@ -20,8 +20,8 @@ class Solution:
         
         # 建立堆结构
         room=[]
-        print(intervals[0][1])
-        # 放入第一个时间
+        
+        # 放入第一个会议结束时间
         heappush(room,intervals[0][1])
         
         for i in intervals[1:]:
