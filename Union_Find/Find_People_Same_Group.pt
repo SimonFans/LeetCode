@@ -1,0 +1,44 @@
+import collections
+
+class solution():
+    def find_group(self,group):
+        res=collections.defaultdict(list)
+        val_set=set()
+        parent={}
+        
+        def find_parent(p):
+            rank=0
+            while parent[p]!=p:
+                rank+=1
+                p=parent[p]
+            return p,rank
+        
+        def merge(a,b):
+            pa,ra=find_parent(a)
+            pb,rb=find_parent(b)
+            if ra<rb:
+                parent[pa]=pb
+            else:
+                parent[pb]=pa
+                    
+        for k,v in group:
+            val_set.add(v)
+            if k not in parent:
+                parent[k]=k
+            if v not in parent:
+                parent[v]=v
+        
+        for x,y in group:
+            merge(x,y)
+        
+        print(parent)
+        print(val_set)
+        
+        for val in val_set:
+            res[find_parent(val)[0]].append(val)
+        
+        return [[k]+v for k,v in res.items()]
+
+
+group=[['A','B'],['B','C'],['D','E'],['D','F']]
+print(solution().find_group(group))
