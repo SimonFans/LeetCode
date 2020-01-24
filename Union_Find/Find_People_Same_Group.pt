@@ -42,3 +42,13 @@ class solution():
 
 group=[['A','B'],['B','C'],['D','E'],['D','F']]
 print(solution().find_group(group))
+                      
+                      
+# Here's testing result:
+                
+{'A': 'A', 'B': 'A', 'C': 'A', 'D': 'D', 'E': 'D', 'F': 'D'}
+{'C', 'B', 'E', 'F'}
+                
+[['A', 'C', 'B'], ['D', 'E', 'F']]
+
+
