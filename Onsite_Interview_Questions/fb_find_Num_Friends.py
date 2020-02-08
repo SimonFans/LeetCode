@@ -17,10 +17,12 @@ class solution(object):
                     if susItem not in res:
                         res[susItem]=1
                     else:
-                        res[susItem]=res.get(susItem)+1
+                        res[susItem]+=1
             else:
                 res[item[0]]=0
         return res
-        
+
+friends=[['A','B'], ['B','C'], ['A','C'], ['B','D'], ['E']]
+print(solution().getFriendNum(friends))
         
  
