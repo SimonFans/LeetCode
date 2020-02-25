@@ -15,16 +15,17 @@ Output: false
 
 class Solution:
     def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
-        a = set()
+        s = set()
         for i in range(len(nums)):
             if t==0:
-                if nums[i] in a:
+                if nums[i] in s:
                     return True
             else:
-                for item in a:
+                for item in s:
                     if abs(nums[i]-item)<=t:
                         return True
-            a.add(nums[i])
-            if len(a) == k+1:
-                a.remove(nums[i-k])
+            s.add(nums[i])
+            # control the indice distance k
+            if len(s) == k+1:
+                s.remove(nums[i-k])
         return False
