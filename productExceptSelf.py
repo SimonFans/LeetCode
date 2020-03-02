@@ -10,22 +10,35 @@ ideas:
 O(N)
 """
 
-class solution:
+class Solution(object):
     def productExceptSelf(self, nums):
-        length = len(nums)
-        left = [0 for i in range(length)]
-        right = [0 for i in range(length)]
-        res = [0 for i in range(length)]
-        left[0] = 1
-        right[length-1] = 1
-        for i in range(0, length-1):
-            left[i+1] = left[i]*nums[i]
-        for j in range(length-1,0,-1):
-            right[j-1] = right[j]*nums[j]
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        if not nums:
+            return []
 
-        for k in range(length):
-            res[k]=left[k]*right[k]
-        return res
+        length = len(nums)
+        if length == 1:
+            return 0
+        result = [0 for i in range(length)]
+
+        #from left to right
+        #for first element, to make the value 1 now for easy multiply after
+        result[0] = 1
+        for i in range(1, length):
+            result[i] = result[i-1] * nums[i-1]
+
+        #from right to left
+        #cause we cannot use the value already in the array to represent right to i+1
+        #so we use a variable to keep the value
+        right = 1
+        for i in range(length - 1, -1, -1):
+            result[i] *= right
+            right *= nums[i]
+
+        return result
 
 test = solution()
 nums = [1, 2, 3, 4]
