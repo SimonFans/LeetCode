@@ -8,6 +8,8 @@ def maxInserts(word):
             return -1
         count+=2-diff
     return count
+
+
 a = "aabab"
 print maxInserts(a)
 a = "dog"
