@@ -18,3 +18,5 @@ a = "aa"
 print maxInserts(a)
 a = "baaaa"
 print maxInserts(a)
+
+
