@@ -1,3 +1,5 @@
+Refer to https://leetcode.com/discuss/interview-question/492652/
+
 def plane_seat_reservation(n,s):
     res = 0
     h=dict()
