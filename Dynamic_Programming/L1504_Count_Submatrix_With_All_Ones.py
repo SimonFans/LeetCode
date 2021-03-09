@@ -27,3 +27,7 @@ def countSubmatrices(matrix):
 matrix = [[0,1,1,1],[1,1,1,1],[0,1,1,1]]
 print(matrix)
 print(countSubmatrices(matrix))
+
+
+# Refer to: https://www.youtube.com/watch?v=ojz8xZc8pog
+
