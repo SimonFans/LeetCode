@@ -37,6 +37,7 @@ class Solution(object):
                 num=0
                 sign=1 if c=='+' else -1
             elif c=='(':
+                # 先压结果，再压符号
                 stack.append(res)
                 stack.append(sign)
                 res=0
