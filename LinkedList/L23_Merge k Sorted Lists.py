@@ -91,47 +91,36 @@ class Solution:
       
  ## Kth array：
 
-class solution(object):
-    def mergeKList(self,lists):
-        if len(lists)==0:
-            return None
-        while len(lists)>1:
-            nextLists=[]
-            for i in range(0,len(lists)-1,2):
-                nextLists.append(self.merge(lists[i],lists[i+1]))
-            if len(lists)%2==1:
-                nextLists.append(lists[len(lists)-1])
-            lists=nextLists
-        return lists[0]
-
-    def merge(self,l1,l2):
-        len1 = len(l1)
-        len2 = len(l2)
-
-        i=0
-        j=0
-        res=[]
-        if len1==0:
-            return l2
-        if len2==0:
-            return l1
-
-        while i<len1 and j<len2:
-            if l1[i]<l2[j]:
-                res.append(l1[i])
-                i+=1
-            else:
-                res.append(l2[j])
-                j+=1
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        num_lists = len(lists)
+        interval = 1
+        while interval < num_lists:
+            for i in range(0, num_lists - interval, interval * 2):
+                lists[i] = self.merge2Lists(lists[i],lists[i + interval])
+            interval *= 2
+        return lists[0] if num_lists > 0 else None
         
-        while i<len(l1):
-            res.append(l1[i])
-            i+=1
-        while j<len(l2):
-            res.append(l2[j])
-            j+=1
-
-        return res
+    def merge2Lists(self, l1, l2):
+        head = point = ListNode(0)
+        while l1 and l2:
+            if l1.val < l2.val:
+                point.next = l1
+                l1 = l1.next
+            else:
+                point.next = l2
+                l2 = l2.next
+            point = point.next
+        if not l1:
+            point.next = l2
+        else:
+            point.next = l1
+        return head.next
 
 array=[[1,3,5],[2,9],[6,8,10]]
 test=solution()
