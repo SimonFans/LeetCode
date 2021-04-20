@@ -1,9 +1,10 @@
 '''
-Binary Search two principles:
+Binary Search (LogN) two principles:
 
 1. Shrink the search scope every iteration ( or recursion )
 2. Cannot exclude potential answers during each shrinking 
 
+Practice: 410,1231,852,1011,1292
 '''
 
 # 1) 找一个准确值
