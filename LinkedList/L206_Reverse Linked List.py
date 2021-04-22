@@ -27,21 +27,25 @@ class Solution:
         return pre
         
         
-  # Recursive:
+# Recursive:
   
-  class Solution:
-    def reverseList(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
-        return self._reverse(head,None)
-
-    def _reverse(self, node, prev):
-        if not node:
-            return prev
-        n = node.next
-        node.next = prev
-        return self._reverse(n, node)
-        
-        
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        # Recursion base condition
+        # head is null only for case input is null
+        def helper(head):
+            if head == None or head.next == None:
+                return head
+            reversed_head = helper(head.next)
+            head.next.next = head
+            head.next = None
+            return reversed_head
+        return helper(head)
+    
+    
+    
