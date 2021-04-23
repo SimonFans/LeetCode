@@ -40,17 +40,24 @@ Each asteroid will be a non-zero integer in the range [-1000, 1000].
 
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
-        stack=[]
-        for cur in asteroids:
-            # only when pre is postive-> and cur is negative <-, then can meet
-            while stack and cur<0 and stack[-1]>0:
-                pre=stack.pop()
-                if pre==-cur:
-                    cur=None
-                    break
-                elif pre>-cur:
-                    cur=pre
-            if cur is not None:
-                stack.append(cur)
-        return stack
+        ans = []
+        for cur_num in asteroids:
+            # 不管当前前面的数字是正数还是负数，只要当前为正数，就入stack，因为碰不上
+            if cur_num > 0:
+                ans.append(cur_num)
+            # 当前是负数
+            else:
+                # 当堆栅顶为正数且当前值 > 堆栅顶值, 堆栅值抛出
+                while ans and ans[-1] > 0 and ans[-1] < -cur_num:
+                    ans.pop()
+                # 如果当前值=堆栅顶值, 两个都没了
+                if ans and ans[-1] == -cur_num:
+                    ans.pop()
+                # 当堆栅顶为正数且大于当前负数值，则当前值不压入堆栅
+                elif ans and ans[-1] > -cur_num:
+                    continue
+                # 当堆栅为空或者堆栅顶元素为负数，将当前值压入堆栅
+                elif not ans or ans[-1] < 0:
+                    ans.append(cur_num)
+        return ans
         
