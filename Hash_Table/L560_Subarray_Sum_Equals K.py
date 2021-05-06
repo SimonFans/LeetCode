@@ -4,6 +4,8 @@ Example 1:
 Input:nums = [1,1,1], k = 2
 Output: 2
 
+#遍历到某个值的时候，可以看再加上这个值之前有多少组相加的值为k
+
 class Solution:
     def subarraySum(self, nums: 'List[int]', k: 'int') -> 'int':
         ans=0  # return result
