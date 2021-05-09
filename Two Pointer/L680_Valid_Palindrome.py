@@ -13,6 +13,8 @@ Output: false
   
 '''
 
+# Solution 1:
+
 class Solution:
     def validPalindrome(self, s: str) -> bool:
         left, right = 0, len(s) - 1
@@ -23,4 +25,26 @@ class Solution:
             left, right = left + 1, right - 1
         return True 
   
+# Solution 2:
   
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        def isPalindrome(s, i, j):
+            i, j = 0, len(s) - 1
+            while i < j:
+                if s[i] != s[j]:
+                    return False
+                i += 1
+                j -= 1
+            return True
+        left, right = 0, len(s) - 1
+        while left < right:
+            if s[left] != s[right]:
+                cut_left = isPalindrome(s[left+1:right+1], left+1, right)
+                cut_right = isPalindrome(s[left:right], left, right-1)
+                return cut_left or cut_right
+            left += 1
+            right -= 1
+        return True
+      
+      
