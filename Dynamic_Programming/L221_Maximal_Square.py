@@ -29,3 +29,5 @@ class Solution:
                     dp[i][j] = min( dp[i][j - 1], dp[i - 1][j - 1], dp[i - 1][j]) + 1
                     max_side_len = max(max_side_len, dp[i][j])
         return max_side_len * max_side_len
+
+      
