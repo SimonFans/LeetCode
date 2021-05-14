@@ -36,7 +36,7 @@ The last droplet settles at index 1, since moving further left would not cause i
 
 Input: heights = [3,1,3], volume = 5, k = 1
 Output: [4,4,4]
-
+'''
 
 Solution:
 
@@ -80,6 +80,4 @@ class Solution:
                 else:
                     heights[K] += 1
         return heights
-        
 
-'''
