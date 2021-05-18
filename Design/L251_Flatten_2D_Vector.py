@@ -37,17 +37,20 @@ class Vector2D:
         self.vector = vec
 
     def next(self) -> int:
-        self.advance_to_next()
+        self.when_to_next()
         res = self.vector[self.outer][self.inner]
         self.inner += 1
         return res
 
     def hasNext(self) -> bool:
-        self.advance_to_next()
+        self.when_to_next()
         return self.outer < len(self.vector)
     
-    # helper function to set value inner and outer
-    def advance_to_next(self):
+    # 什么时候更新outer和inner指针
+    # 1. 当外部指针的index小于整个list的长度
+    # 2. 当内部指针到达最大子list的长度，即外部指针的长度
+    # 这个时候需要外指针后移，内部指针清0重计
+    def when_to_next(self):
         while self.outer < len(self.vector) and self.inner == len(self.vector[self.outer]):
             self.outer += 1
             self.inner = 0
