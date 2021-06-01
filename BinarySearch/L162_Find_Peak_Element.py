@@ -27,6 +27,7 @@ class Solution:
             return 0
         
         start,end=0,len(nums)-1
+        # 以下条件是保证至少有三个元素
         while start+1<end:
             mid=start+(end-start)//2
             if nums[mid]>nums[mid-1] and nums[mid]>nums[mid+1]:
@@ -35,6 +36,7 @@ class Solution:
                 end=mid
             else:
                 start=mid
+        # 以下条件是当只有两个数字的时候谁大返回谁
         if nums[start]>nums[end]:
             return start
         else:
