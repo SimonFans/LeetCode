@@ -1,7 +1,7 @@
 
-# find # of friends for each one
-input: [[A,B], [B,C], [A,C], [B,D], [E]]
-output: {A:2, B:3, C:2, D:1, E:0}
+# Find # of friends for each one
+Input: [['A','B'], ['B','C'], ['A','C'], ['B','D'], ['E']]
+output: {'A':2, 'B':3, 'C':2, 'D':1, 'E':0}
 
 -- Solution1
 
