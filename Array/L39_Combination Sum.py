@@ -27,17 +27,22 @@ A solution set is:
 
 
 class Solution:
-    def combinationSum(self, candidates: 'List[int]', target: 'int') -> 'List[List[int]]':
-        candidates.sort()
-        Solution.res=[]
-        self.dfs(candidates,target,0,[])
-        return Solution.res
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        # final result list
+        results = []
         
-    def dfs(self, candidates, target, start, valueList):
-        length=len(candidates)
-        if target==0:
-            return Solution.res.append(valueList)
-        for i in range(start,length):
-            if target<candidates[i]:
+        def backtrack(remain, comb, start):
+            if remain == 0:
+                # do a deep copy
+                results.append(list(comb))
                 return
-            self.dfs(candidates,target-candidates[i],i,valueList+[candidates[i]])
+            elif remain < 0:
+                return
+            # iterate loop
+            for i in range(start, len(candidates)):
+                comb.append(candidates[i])
+                backtrack(remain-candidates[i], comb, i)
+                comb.pop()
+        
+        backtrack(target, [], 0)
+        return results
