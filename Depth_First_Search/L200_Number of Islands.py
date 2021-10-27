@@ -7,8 +7,8 @@ Input:
 11010
 11000
 00000
-
 Output: 1
+
 Example 2:
 
 Input:
@@ -16,28 +16,30 @@ Input:
 11000
 00100
 00011
-
 Output: 3
 
-
+# DFS classical problem
 class Solution:
-    def numIslands(self, grid):
-    if not grid:
-        return 0
-        
-    count = 0
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            if grid[i][j] == '1':
-                self.dfs(grid, i, j)
-                count += 1
-    return count
-
-    def dfs(self, grid, i, j):
-        if i<0 or j<0 or i>=len(grid) or j>=len(grid[0]) or grid[i][j] != '1':
-            return
-        grid[i][j] = '#'
-        self.dfs(grid, i+1, j)
-        self.dfs(grid, i-1, j)
-        self.dfs(grid, i, j+1)
-        self.dfs(grid, i, j-1)
+    def numIslands(self, grid: List[List[str]]) -> int:
+        def dfs(grid, i, j):
+            # up, left, down, right
+            if i<0 or j<0 or i>=len(grid) or j>=len(grid[0]) or grid[i][j]!= "1":
+                return
+            grid[i][j] = "#"
+            # up, left, down, right
+            dfs(grid,i-1,j)
+            dfs(grid,i,j-1)
+            dfs(grid,i+1,j)
+            dfs(grid,i,j+1)
+                
+        cnt = 0 
+        if not grid:
+            return 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                # cnt cannot put outside of if, otherwise it will count 0 case as well
+                if grid[i][j] == "1":
+                    dfs(grid,i,j)
+                    cnt += 1
+        return cnt
+    
