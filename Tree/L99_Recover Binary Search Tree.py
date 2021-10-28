@@ -44,38 +44,34 @@ Could you devise a constant space solution?
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-
-    def recoverTree(self, root: 'TreeNode') -> 'None':
+    def recoverTree(self, root: Optional[TreeNode]) -> None:
         """
         Do not return anything, modify root in-place instead.
         """
-        if root == None: return None
-      
-        stack = []
-        cur=root
-        pre=None
-        first=None
-        second=None
-        
-        while stack or cur:
-            if cur:
-                stack.append(cur)
-                cur=cur.left
+        def dfs(root):
+            if not root:
+                return
             else:
-                cur=stack.pop()
-                if pre and cur.val<pre.val:
-                    if first==None:
-                        first=pre
-                    second=cur
-                pre=cur
-                cur=cur.right
-       
+                dfs(root.left)
+                node_val.append(root)
+                dfs(root.right)
+        
+        node_val = []      
+        dfs(root)
+        # Because BST is sorted after implemeting inorder traversal, this question just has 2 nodes problem
+        first, second = None, None
+        for i in range(len(node_val)-1):
+            if node_val[i].val >= node_val[i+1].val and not first:
+                first = node_val[i]
+            # has found first
+            if node_val[i].val >= node_val[i+1].val and first:
+                second = node_val[i+1]
+        
         first.val, second.val = second.val, first.val
         
         
