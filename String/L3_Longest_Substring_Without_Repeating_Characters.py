@@ -20,23 +20,19 @@ Explanation: The answer is "wke", with the length of 3.
 Method(1)
     
 class Solution:
-    def lengthOfLongestSubstring(self, s: 'str') -> 'int':
-        
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s:
+            return 0
+        d = {}
         start = -1
         longest_len = 0
-        d = {}
-        # i: index
-        
         for i in range(len(s)):
-            
-            if s[i] in d and d[s[i]]>start:
+            if s[i] in d and d[s[i]] > start:
                 start = d[s[i]]
                 d[s[i]] = i
-
             else:
-                d[s[i]]=i
-                if i - start > longest_len:
-                    longest_len = i - start
+                d[s[i]] = i
+                longest_len = max(longest_len, i-start)
         return longest_len
 
 # d[s[i]]>start? => start moves to first m when it finds the second m, 
