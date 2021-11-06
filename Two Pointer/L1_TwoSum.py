@@ -9,19 +9,14 @@ Given nums = [2, 7, 11, 15], target = 9,
 Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        size=len(nums)
-        dict={}
-        for i in range(size):
-            x=nums[i]
-            if(target-x in dict):
-                return (dict[target-x],i)
-            dict[x]=i
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        d = {}
+        for i in range(len(nums)):
+            val = target - nums[i]
+            if val not in d:
+                d[nums[i]] = i
+            else:
+                return (d[val],i)
 
 
