@@ -21,19 +21,18 @@ A solution set is:
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
-        res=set() # unique result
-        for k in range(len(nums)):
-            t=-nums[k]
-            i,j=k+1,len(nums)-1
-            while i<j:
-                if nums[i]+nums[j] == t:
-                    res.add((nums[k],nums[i],nums[j])) 
-                    i+=1
-                    j-=1
-                elif nums[i]+nums[j] < t:
-                    i+=1
+        res = set()
+        for i in range(len(nums)):
+            j, k = i+1, len(nums) - 1
+            while j < k:
+                if nums[i] + nums[j] + nums[k] == 0:
+                    res.add((nums[i], nums[j], nums[k]))
+                    j += 1
+                    k -= 1
+                elif nums[i] + nums[j] + nums[k] < 0:
+                    j += 1
                 else:
-                    j-=1
+                    k -= 1
         return list(res)
                 
                     
