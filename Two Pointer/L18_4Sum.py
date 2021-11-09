@@ -18,27 +18,22 @@ A solution set is:
 
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        if len(nums)<4:
-            return []
-        dic=dict()
-        for i in range(len(nums)):
-            for j in range(i+1,len(nums)):
-                sum2=nums[i]+nums[j]
-                if sum2 in dic:
-                    dic[sum2].append((i,j))
-                else:
-                    dic[sum2]=[(i,j)]
-        res=set()
-        for key in dic:
-            value=target-key
-            if value in dic:
-                list1=dic[key]
-                list2=dic[value]
-                for (a,b) in list1:
-                    for (c,d) in list2:
-                        if a!=c and a!=d and b!=c and b!=d:
-                            temp=[nums[a],nums[b],nums[c],nums[d]]
-                            temp.sort()
-                            res.add(tuple(temp))
-        return list(res)
+        nums.sort()
+        n = len(nums)
+        ans = set()
+        
+        for i in range(n):
+            for j in range(i+1, n):
+                goal = target - nums[i] - nums[j]
+                beg, end = j+1, n-1
+                while beg < end:
+                    if nums[beg] + nums[end] < goal:
+                        beg += 1
+                    elif nums[beg] + nums[end] > goal:
+                        end -= 1
+                    else:
+                        ans.add((nums[i],nums[j],nums[beg],nums[end]))
+                        beg += 1
+                        end -= 1
+        return ans
         
