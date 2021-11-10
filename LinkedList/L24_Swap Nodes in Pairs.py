@@ -11,23 +11,33 @@ Given 1->2->3->4, you should return the list as 2->1->4->3.
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
-    def swapPairs(self, head: ListNode) -> ListNode:
-        if not head or not head.next:
-            return head
-        point=ListNode(0)
-        point.next=head
-        head=point
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # because question said the node value is > 0 so I can use 0 as my dummy node
+        dummy = ListNode(0)
         
-        while point.next and point.next.next:
-            tmp=point.next.next.next        # 3 <-tmp
-            point.next.next.next=point.next  # 2->1
-            point.next=point.next.next    # 0 -> 2
-            point.next.next.next=tmp      # 1 -> 3
-            point=point.next.next         # 1 <- point
+        # Link to the head
+        dummy.next = head
         
-        return head.next 
+        # Set another pointer points to the dummy node
+        pre_node = dummy
+        
+        # Iterate through the Linkedlist
+        while head and head.next:
+            first_node = head
+            second_node = head.next
+            
+            # swap the first and second
+            pre_node.next = second_node
+            first_node.next = second_node.next
+            second_node.next = first_node
+            
+            
+            # update pre_node and head
+            pre_node = first_node
+            head = first_node.next
+            
+        return dummy.next
