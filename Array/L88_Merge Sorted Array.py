@@ -14,22 +14,25 @@ Output: [1,2,2,3,5,6]
 
 
 class Solution:
-    def merge(self, nums1, m, nums2, n):
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
-        :type nums1: List[int]
-        :type m: int
-        :type nums2: List[int]
-        :type n: int
-        :rtype: void Do not return anything, modify nums1 in-place instead.
+        Do not return anything, modify nums1 in-place instead.
+        
+        Interview Tip: Whenever you're trying to solve an array problem in-place, always consider the possibility of iterating backwards instead of forwards through the array. It can completely change the problem, and make it a lot easier.
         """
-        while m>0 and n>0:
-            if nums1[m-1]>nums2[n-1]:
-                nums1[m+n-1]=nums1[m-1]
-                m-=1
+        p1 = m -1 
+        p2 = n - 1
+        
+        for p in range(n + m -1, -1, -1):
+            # if no numbers in nums2 then quit
+            if p2 < 0:
+                break
+            # p1 >= 0 means nums1 still have numbers otherwise p1=-1 then give wrong res
+            if  p1 >=0 and nums1[p1] > nums2[p2]:
+                nums1[p] = nums1[p1]
+                p1 -= 1
             else:
-                nums1[m+n-1]=nums2[n-1]
-                n-=1
-        if n>0:
-            nums1[:n]=nums2[:n]
+                nums1[p] = nums2[p2]
+                p2 -= 1
             
             
