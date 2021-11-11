@@ -10,36 +10,56 @@ If there is no such window in S that covers all characters in T, return the empt
 If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
 
 
-from collections import defaultdict
 
-class Solution():
-    def minWindow(self,s,t):
-        cnt=defaultdict(int)
-        t_length=len(t)
-        min_val=200000
-        # 记录j的位置
-        start=0
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if not s or not t:
+            return ''
         
-        for i in s:
-            cnt[i]=0
-        for i in t:
-            cnt[i]+=1
+        # count unique characters in t 
+        t_dict = {}
+        for k in t:
+            t_dict[k] = t_dict.get(k,0) + 1
         
-        # 起始位置，之后会变动
-        j=0
-        for i in range(len(s)):
-            if cnt[s[i]]>0:
-                t_length-=1
-            cnt[s[i]]-=1
+        # count unique characters in the current window 
+        window_count = {}
+        
+        # It should match both characters and counts in s and t
+        formed = 0
+        # number of unique characters in t
+        required = len(set(t))
+        
+        # Result
+        ans = (float("inf"), None, None)
+        
+        # left & right pointer, all starts from 0 
+        l, r = 0, 0
+        
+        # right pointer starts to move to the right
+        while r < len(s):
+            character = s[r]
+            window_count[character] = window_count.get(character,0) + 1
             
-            while t_length==0:
-                if i-j+1<min_val:
-                    min_val=i-j+1
-                    start=j
-                cnt[s[j]]+=1
-                if cnt[s[j]]>0:
-                    t_length+=1
-                j+=1   
-        return '' if min_val==200000 else s[start:start+min_val]
-    
-    
+            # If the frequency of the current character added equals to the desired count in t then increment the formed count by 1
+            if character in t_dict and window_count[character] == t_dict[character]:
+                formed += 1
+            # try to narrow down the window size and make it desirable
+            while l <= r and formed == required:
+                character = s[l]
+                if r - l + 1 < ans[0]:
+                    ans = (r - l + 1, l, r)
+                window_count[character] -= 1
+                # The character at the position pointed by the `left` pointer is no longer a part of the window.
+                if character in t_dict and window_count[character] < t_dict[character]:
+                    formed -= 1
+                l += 1
+            r += 1   
+        
+        return '' if ans[0] == float("inf") else s[ans[1]:ans[2]+1]
+                
+                
+                
+                
+                
+                
+                
