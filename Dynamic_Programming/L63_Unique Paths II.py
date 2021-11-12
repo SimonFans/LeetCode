@@ -27,25 +27,37 @@ There are two ways to reach the bottom-right corner:
 
 
 class Solution:
-    def uniquePathsWithObstacles(self, obstacleGrid):
-        """
-        :type obstacleGrid: List[List[int]]
-        :rtype: int
-        """
-        if not obstacleGrid:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        # m: row 
+        # n: column
+        m = len(obstacleGrid)
+        n = len(obstacleGrid[0])
+        
+        # 如果左上角的机器人位置有障碍物
+        if obstacleGrid[0][0] == 1:
             return 0
-        for i in range(len(obstacleGrid)):
-            for j in range(len(obstacleGrid[0])):
-                if obstacleGrid[i][j]==1:
-                    obstacleGrid[i][j]=0
-                elif i==0 and j==0:
-                    obstacleGrid[i][j]=1
-                elif i==0:
-                    obstacleGrid[i][j]=obstacleGrid[i][j-1]
-                elif j==0:
-                    obstacleGrid[i][j]=obstacleGrid[i-1][j]
+        
+        obstacleGrid[0][0] = 1
+        
+        
+        # 先填充外围，即第一列和第一行。
+        for i in range(1,m):
+            obstacleGrid[i][0] = int(obstacleGrid[i][0] == 0 and obstacleGrid[i-1][0] == 1)
+                
+        for j in range(1,n):
+            obstacleGrid[0][j] = int(obstacleGrid[0][j] == 0 and obstacleGrid[0][j-1] == 1)
+                
+        print(obstacleGrid)  
+        # 填里边。到一个特定的格子只能通过从上或者下来确定步数
+        for i in range(1, m):
+            for j in range(1, n):
+                if obstacleGrid[i][j] == 1:
+                    obstacleGrid[i][j] = 0
                 else:
-                    obstacleGrid[i][j]=obstacleGrid[i-1][j]+obstacleGrid[i][j-1]
-        return obstacleGrid[i][j]
+                    obstacleGrid[i][j] = obstacleGrid[i][j-1] + obstacleGrid[i-1][j]
+        
+        # 返回最右下角统计的步数
+        return obstacleGrid[m-1][n-1]
+        
         
         
