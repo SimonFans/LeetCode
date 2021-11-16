@@ -19,28 +19,30 @@ The length of the array won't exceed 10,000.
 You may assume the sum of all the numbers is in the range of a signed 32-bit integer.
 
 
-"""
-遍历数组nums，求前i项和total；对k取模，记模值为m
-
-利用dmap[m]记录模为m的前i项和的最小下标，初始令dmap[0] = -1
-
-若dmap[m] + 1 < i，则返回True
-
-
-"""
-
 
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        d={0:-1}
-        total=0
-        for i,n in enumerate(nums):
-            total+=n
-            m=total%k if k else total
-            if m not in d:
-                d[m]=i
-            elif d[m]+1<i:
+        
+        # 1. Calculate the remainder and note the index into a dictionary =>  {remainder : index}
+        # 2. If meet same remainder, check if the distince between indexes is > 1 then return true
+        # 3. If k == 0: just return True
+        # 4. Initialize the remainder_index dictionary with raminder = 0 for any sum after sum % k == 0
+        
+        remainder_index = {0 : -1}
+        _sum = 0
+        
+        for idx, num in enumerate(nums):
+            _sum += num
+            # 0 is always a multiple of k
+            if k == 0:
                 return True
+            else:
+                remainder = _sum % k
+                if remainder not in remainder_index:
+                    remainder_index[remainder] = idx
+                else:
+                    if idx - remainder_index[remainder] > 1:
+                        return True
         return False
         
         
