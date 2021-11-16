@@ -29,23 +29,22 @@ s only consists of '(' and ')' characters.
 
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        res = 0
-        str_len = len(s)
-        if str_len == 0:
-            return res
+        
         stack = []
-        dic = {')':'('}
-        i = 0 
-        while i < str_len:
-            if s[i] == '(':
-                stack.append(s[i])
+        ans = 0
+        for symbol in s:
+            if symbol == '(':
+                stack.append(symbol)
+                ans+=1
             else:
-                if not stack:
-                    res += 1 
-                elif stack[-1] == dic[s[i]]:
-                    stack.pop()                    
-            i += 1
-        if len(stack) != 0:
-            return len(stack) + res
-        return res
+                if stack and stack[-1] == '(':
+                    stack.pop()
+                    ans -= 1 
+                    continue
+                elif stack and stack[-1] != '(':
+                    stack.pop()
+                    ans+=1
+                else:
+                    ans += 1
+        return ans
    
