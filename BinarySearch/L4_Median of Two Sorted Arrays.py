@@ -69,15 +69,42 @@ class Solution:
                 return (max_left+min_right)/2.0
   
 
+# Solution log(n) binary search
 
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        l = sorted(nums1+nums2)
-        a = len(l)
-
-        if a%2==0:
-            return (l[a//2-1]+l[a//2])/2.0
-        else:
-            return l[a//2]
+        n1 = len(nums1)
+        n2 = len(nums2)
         
+        if  n1 > n2:
+            return self.findMedianSortedArrays(nums2, nums1)
+        
+        k = (n1 + n2 + 1) // 2
+        
+        l, r = 0, n1
+        
+        while l < r:
+            m1 = l + (r-l)//2
+            m2 = k - m1
+            if nums1[m1] < nums2[m2-1]:
+                l = m1 + 1
+            else:
+                r = m1
+        
+        m1 = l
+        m2 = k - l
+        
+        c1= max(float('-Inf') if m1 <= 0 else nums1[m1-1], float('-Inf') if m2 <= 0 else nums2[m2-1])
+        
+        if (n1+n2)%2 == 1:
+            return c1
+        
+        c2= min(float('Inf') if m1 >= n1 else nums1[m1], float('Inf') if m2 >= n2 else nums2[m2])
+        
+        return (c1 + c2) /2 
+
+
+
+
+
         
