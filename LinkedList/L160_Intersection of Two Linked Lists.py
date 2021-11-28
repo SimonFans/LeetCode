@@ -30,34 +30,22 @@ return None, there's no intersection.
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-        def length(p):
-            n=0
-            while p:
-                n+=1
-                p=p.next
-            return n
-        
-        if headA is None or headB is None:
-            return None
-        
-        tmp1=headA
-        tmp2=headB
-        n1=length(tmp1)
-        n2=length(tmp2)
+#         pA = headA
+#         pB = headB
 
-        while n1>n2:
-            tmp1=tmp1.next
-            n1-=1
+#         while pA != pB:
+#             pA = headB if pA is None else pA.next
+#             pB = headA if pB is None else pB.next
+#         return pA
         
-        while n1<n2:
-            tmp2=tmp2.next
-            n2-=1
-            
-        while tmp1 != None:
-            if tmp1==tmp2:
-                return tmp1
-            tmp1=tmp1.next
-            tmp2=tmp2.next
+        nodes_in_B = set()
+        while headB is not None:
+            nodes_in_B.add(headB)
+            headB = headB.next
+        while headA is not None:
+            if headA in nodes_in_B:
+                return headA
+            headA = headA.next
         return None
     
 
