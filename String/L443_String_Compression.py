@@ -49,25 +49,25 @@ Notice each digit has it's own entry in the array.
 
 
 # using only O(1) extra space
-# i: 更改后位置长度的下标
-# j: 当前位置的下标
-# counter: 统计字出现的字数
+# two pointers
 
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        n=len(chars)
-        i=0
-        counter=1
-        for j in range(1,n+1):
-            if j<n and chars[j-1]==chars[j]:
-                counter+=1
-            else:
-                chars[i]=chars[j-1]
-                i+=1
-                if counter>1:
-                    for m in str(counter):
-                        chars[i]=m
-                        i+=1
-                counter=1
-        return i
+        walker, runner = 0, 0
+        while runner < len(chars):
+            chars[walker] = chars[runner]
+            count = 1
+            # check scenario when length of string > 1
+            while runner + 1 < len(chars) and chars[runner] == chars[runner+1]:
+                count += 1
+                runner += 1
+            if count > 1:
+                for c in str(count):
+                    chars[walker+1] = c
+                    walker += 1
+            runner += 1
+            walker += 1
+        return walker
+
+
        
