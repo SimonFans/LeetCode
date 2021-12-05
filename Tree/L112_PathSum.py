@@ -26,20 +26,16 @@ class Solution:
         # recursive
         if not root:
             return False
-        
         targetSum -= root.val
         # if current node is a leaf node, then check if current sum == 0? 
         if not root.left and not root.right:
             return targetSum == 0
-        
         return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
     
         # iterative
         if not root:
             return False
-        
         q = [(root, targetSum - root.val)]
-        
         while q:
             current_node, remain = q.pop(0)
             if not current_node.left and not current_node.right and remain == 0:
