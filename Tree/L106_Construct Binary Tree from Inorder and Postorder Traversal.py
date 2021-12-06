@@ -18,20 +18,36 @@ Return the following binary tree:
    
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        if not inorder or not postorder:
-            return None
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        # postorder <-> inorder relationship
+        # the order postorder: left, right, root. 
+        # can use pop() to get the root then split the inorder list into left subtree and right subtree
         
-        root = TreeNode(postorder.pop())
-        inorderIndex = inorder.index(root.val)
-
-        root.right = self.buildTree(inorder[inorderIndex+1:], postorder)
-        root.left = self.buildTree(inorder[:inorderIndex], postorder)
-
-        return root
+        def helper(left, right):
+            if left > right:
+                return None
+            
+            # pick the last element as root
+            val = postorder.pop()
+            root = TreeNode(val)
+            
+            # find index in the inorder based on root value
+            index = idx_map[val]
+            
+            # split the inorder into right subtree
+            root.right = helper(index+1, right)
+            
+            # split the inorder into left subtree
+            root.left = helper(left, index-1)
+            
+            return root
+        
+        # node_val: idx from inorder
+        idx_map = { node_val : idx for idx, node_val in enumerate(inorder)}
+        
+        return helper(0, len(inorder) - 1)
