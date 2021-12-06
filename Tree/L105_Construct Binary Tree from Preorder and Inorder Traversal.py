@@ -17,25 +17,23 @@ Return the following binary tree:
    
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        if len(preorder)==0 or len(preorder)!=len(inorder):
-            return None
-        return self.buildTreeHelper(preorder,inorder,0,0,len(preorder)-1)
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        def helper(left, right):
+            if left > right:
+                return None
+            val = preorder.pop(0)
+            root = TreeNode(val)
+            index = idx_map[val]
+            root.left = helper(left, index - 1)
+            root.right = helper(index + 1, right)
+            return root
         
-    def buildTreeHelper(self,preorder,inorder,pre_st,ino_st,ino_end):
-        if pre_st>len(preorder) or ino_st>ino_end:
-            return None
-        current=TreeNode(preorder[pre_st])
-        i=inorder.index(preorder[pre_st])
-       
-        current.left=self.buildTreeHelper(preorder,inorder,pre_st+1,ino_st,i-1)
-        current.right=self.buildTreeHelper(preorder,inorder,pre_st+(i-ino_st+1),i+1,ino_end)
-        return current
+        idx_map = {node_val : idx for idx, node_val in enumerate(inorder)}
+        return helper(0, len(inorder) - 1)
         
         
