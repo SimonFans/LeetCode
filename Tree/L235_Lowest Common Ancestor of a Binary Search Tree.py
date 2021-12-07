@@ -20,31 +20,69 @@ Explanation: The LCA of nodes 2 and 4 is 2, since a node can be a descendant of 
 
 
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
 
-class Solution(object):
-    def lowestCommonAncestor(self, root, p, q):
-        """
-        :type root: TreeNode
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: TreeNode
-        注意这里是一个二叉搜索树，根结点的右子树上所有的点的值都比根结点大，左子树上所有点的值都比根结点的值小
-        分为四种情况，
-        1、如果两个节点一个值比节点大，一个小，那么二者的公共节点肯定是根结点，
-        2、如果两个节点中有一个与根结点的值同样大，那么二者的公共节点同样是根结点
-        3、如果两个节点的值都比根结点小，那么二者的公共节点出现在根结点的左子树中，递归查询
-        4、如果两个节点的值都比根结点大，那么二者的公共节点出现在根结点的右子树中，递归查询
+# Iterative
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # Add root to the stack
+        stack = [root]
+        
+        # dictionary to keep track of parent node
+        parent = {root: None}
+        
+        # loop stops until we found out p & q
+        while p not in parent or q not in parent:
+            node = stack.pop(0)
+            if node.left:
+                stack.append(node.left)
+                parent[node.left] = node
+            if node.right:
+                stack.append(node.right)
+                parent[node.right] = node
+        
+        # create a set to keep the ancestor of node p
+        ancestors = set()
+        
+        # process all ancestors for node p using parent pointers
+        while p:
+            ancestors.add(p)
+            p = parent[p]
+            
+        while q not in ancestors:
+            q = parent[q]
+        
+        return q
+       
+# recursive:
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-        """
-        if (p.val-root.val)*(q.val-root.val)<=0:
-            return root
-        if p.val<root.val and q.val<root.val:
-            return self.lowestCommonAncestor(root.left,p,q)
-        if p.val>root.val and q.val>root.val:
-            return self.lowestCommonAncestor(root.right,p,q)
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # bottom up
+        def helper(node):
+            if not node:
+                return False
+            left = helper(node.left)
+            right = helper(node.right)
+            mid = node == p or node == q
+            # return final result
+            if mid + left + right >= 2:
+                self.ans = node
+            return mid or left or right
+            
+        self.ans = None
+        helper(root)
+        return self.ans
+
+       
         
