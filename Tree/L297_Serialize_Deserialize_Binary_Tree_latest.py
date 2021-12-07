@@ -71,4 +71,71 @@ class Codec:
 # ans = deser.deserialize(ser.serialize(root))
 
 
+# BFS 解法
+
+# serialize: tree -> string 
+# example:   
+'''
+          1
+       2     3
+           4   5
+'''
+# =>
+'''
+After serialization, you will get string like '1,2,3,#,#,4,5,#,#,#,#'
+'''
+
+# deserialize: string -> tree
+# example: based on the above string result, turn it back to tree structure
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        if not root:
+            return ''
+        queue = [root]
+        res = []
+        while queue:
+            node = queue.pop(0)
+            if node:
+                queue.append(node.left)
+                queue.append(node.right)
+            res.append(str(node.val) if node else '#')
+        return ','.join(res)    
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        if not data: return None
+        nodes = data.split(',')
+        root = TreeNode(int(nodes[0]))
+        q = [root]
+        index = 1
+        while q:
+            node = q.pop(0)
+            if nodes[index] is not '#':
+                node.left = TreeNode(int(nodes[index]))
+                q.append(node.left)
+            index += 1
+            if nodes[index] is not '#':
+                node.right = TreeNode(int(nodes[index]))
+                q.append(node.right)
+            index += 1
+        return root
+
 
