@@ -13,33 +13,32 @@ Output: "10101"
 
 
 class Solution:
-    def addBinary(self, a, b):
-        """
-        :type a: str
-        :type b: str
-        :rtype: str
-        """
-        l1,l2=len(a)-1,len(b)-1
-        flag=0
-        res=''
-        while l1>=0 and l2>=0:
-            num=int(a[l1])+int(b[l2])+flag
-            flag=num//2
-            num%=2
-            res=str(num)+res
-            l1-=1;l2-=1
-        while l1>=0:
-            num=int(a[l1])+flag
-            flag=num//2
-            num%=2
-            res=str(num)+res
-            l1-=1
-        while l2>=0:
-            num=int(b[l2])+flag
-            flag=num//2
-            num%=2
-            res=str(num)+res
-            l2-=1
-        if flag==1:
-            res='1'+res
-        return res
+    def addBinary(self, a: str, b: str) -> str:
+        '''
+        Input: a = "1010", b = "1011"
+        Output: "10101"
+        '''
+        n = max(len(a), len(b))
+        # zfill 目的是将两个字符串等长，少的那个前面补0形成长度为n的字符串
+        a, b = a.zfill(n), b.zfill(n)
+        # result list
+        ans = []
+        # 进位为0
+        carry = 0
+        # 从后向前遍历，最后的时候记得要反向输出
+        for i in range(n-1,-1,-1):
+            if a[i] == '1':
+                carry += 1
+            if b[i] == '1':
+                carry += 1
+            if carry % 2 == 1:
+                ans.append('1')
+            else:
+                ans.append('0')
+            # 此处无非是carry = 0,1,2,3
+            carry //= 2
+        
+        if carry == 1:
+            ans.append('1')
+        ans.reverse()
+        return ''.join(ans)
