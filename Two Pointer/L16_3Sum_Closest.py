@@ -9,22 +9,20 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
+        diff = float('Inf')
         nums.sort()
-        if len(nums)<3:
-            return 0
-        Min=nums[0]+nums[1]+nums[2]
-        for left in range(0,len(nums)-2):
-            mid,right=left+1,len(nums)-1
-            
-            while mid<right:
-                tmp=target-nums[left]-nums[mid]-nums[right]
-                if abs(tmp) < abs(target-Min): # compare distance
-                    Min=nums[left]+nums[mid]+nums[right]
-                if nums[left]+nums[mid]+nums[right]==target:
-                    return Min
-                elif nums[left]+nums[mid]+nums[right]<target:
-                    mid+=1
+        for i in range(len(nums)):
+            lo, hi = i+1, len(nums) - 1
+            while lo < hi:
+                _sum = nums[i] + nums[lo] + nums[hi]
+                if abs(target - _sum) < abs(diff):
+                    diff = target - _sum
+                if _sum < target:
+                    lo += 1
                 else:
-                    right-=1
-        return Min
+                    hi -= 1
+            # optimize 
+            if diff == 0:
+                break
+        return target - diff
         
