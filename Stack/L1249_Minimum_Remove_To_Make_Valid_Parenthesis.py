@@ -21,6 +21,18 @@ Example 4:
 Input: s = "(a(b(c)d)"
 Output: "a(b(c)d)"
 '''
+
+
+'''
+        Steps:
+        1. create a set to record the index (if the stack is empty, meet ')', add to set)
+        2. create a stack to record '('
+           if there's a ')', pop the stack, stack may have redundent '(' (need to remove)
+        3. union set with set(stack) which are all indices going to remove. 
+        4. rebuild the string using a for loop
+'''
+
+
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         index_to_remove = set()
@@ -40,8 +52,8 @@ class Solution:
         # Find out all index that going to be removed from the string
         # After the above for loop, if stack still not empty then means more "(" left
         index_to_remove = index_to_remove.union(set(stack))
-        res = []
+        res = ''
         for i, char in enumerate(s):
             if i not in index_to_remove:
-                res.append(char)
-        return ''.join(res)
+                res += char
+        return res
