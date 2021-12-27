@@ -7,14 +7,16 @@ Output: 2
 #遍历到某个值的时候，可以看再加上这个值之前有多少组相加的值为k
 
 class Solution:
-    def subarraySum(self, nums: 'List[int]', k: 'int') -> 'int':
-        ans=0  # return result
-        sum=0  # do sum 
-        d = collections.defaultdict(int)
-        d[0]=1  # initial condition
-        for i in range(len(nums)):
-            sum+=nums[i]  # 前 n sum
-            if sum-k in d:   # 前 n 项和-k 在字典里
-                ans+=d[sum-k]   # 拿出之前加到这个数，有多少个给ans
-            d[sum]+=1    # 每次把当前和记录当字典中
-        return ans
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        hash_table = collections.defaultdict(int)
+        total = 0
+        running_sum = 0
+        for x in nums:
+            running_sum += x
+            _sum = running_sum - k
+            if _sum in hash_table:
+                total += hash_table[_sum]
+            if running_sum == k:
+                total += 1
+            hash_table[running_sum] += 1
+        return total
