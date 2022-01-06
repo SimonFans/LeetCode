@@ -482,3 +482,28 @@ Recursively parse a string for a pattern that can be either 1 or 2 characters lo
 Write a simple spell-checking engine
 
 Given two sentences, you have to print the words those are not present in either of the sentences.(If one word is present twice in 1st sentence but not present in 2nd sentence then you have to print that word too)
+
+Question: Find overlapping interval:
+                      
+A = [[1,3],[5,7], [8,12]]
+B = [[2,3],[4,9], [10,15]]
+# return [(2, 3), (5, 7), (8, 9), (10, 12)]
+
+m = len(A)
+n = len(B)
+ans = []
+i, j = 0,0 
+while i < m and j < n:
+    # left bound for intersecting segment 
+    l = max(A[i][0], B[j][0])
+    # right bound for intersecting segment 
+    r= min(A[i][1], B[j][1])
+    if l <= r:
+        ans.append((l,r))
+    if A[i][1] < B[j][1]:
+        i += 1
+    else:
+        j += 1
+print(ans)
+                      
+                   
