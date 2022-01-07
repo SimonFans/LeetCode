@@ -2,15 +2,16 @@
 # Calculate the average word length. 
 # For the given set of words return the average word length. 
 
-#
 def avg_word_length(x):
-   words=x.split()
-   word_lengths=[len(word) for word in words]
-   avg_word_length=sum(word_lengths)/len(words)
-   Return (avg_word_length)
+    if len(x) == 0:
+        return 0
+    else:
+        words=x.split()
+        word_lengths=[len(word) for word in words]
+        avg_word_length=sum(word_lengths)/len(words)
+    return avg_word_length
 
-
-# assert avg_word_length('') == None
+# assert avg_word_length('') == 0
 # assert avg_word_length('ibm') == 3
 # assert avg_word_length('ibm microsoft') == 6
 # assert avg_word_length(' Hello World ') == 5
