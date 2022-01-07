@@ -36,6 +36,23 @@ class Solution:
                 ans.append(nums[queue[0]])
         return ans
       
-      
+ 
+ class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        # Final return
+        ans = []
+        # queue stores all index
+        dq = collections.deque()
+        
+        for cur_index in range(len(nums)):
+            while dq and nums[cur_index] > dq[-1][1]:
+                dq.pop()
+            dq.append((cur_index,nums[cur_index]))
+            if dq[0][0] + k == cur_index:
+                dq.popleft()
+            if cur_index >= k-1:
+                ans.append(dq[0][1])
+        return ans
+ 
   
  
