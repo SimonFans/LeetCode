@@ -36,24 +36,15 @@ def avg_word_length(x):
 # def is_valid_IP(check_ip):
 #     # Your code here
 
-Def is_valid_ip(address):
-       parts= address.split(“.”)
-       
-       If len(parts)!=4 
-          Print (“IP address invalid!”)
-          Return False 
-      
-       For part in parts
-              If not isinstance(int(part),int):
-              Print (“IP address invalid!”)
-             Return False
-
-             If int(part)<0 or int(part)>255
-             Print (“IP address invalid!”)
-             Return False
-             
-Print (“IP address invalid!”)
-Return True
+def checkIPv4(self,IP):
+        IP=IP.split('.')
+        if len(IP)!=4:
+            return False
+        for num in IP:
+            # return False when empty string, string like 2.5, <0 or > 255, 0xxx
+            if not num or (not num.isdecimal()) or (int(num)<0 or int(num)>255) or (num[0]=='0' and len(num)!=1):
+                return False
+        return True
            
 
 # assert is_valid_IP('') == False
