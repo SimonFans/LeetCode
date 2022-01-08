@@ -85,16 +85,40 @@ def checkIPv4(self,IP):
 #   In the above example, the function should
 #   return the following output:
 #     {'A': 2, 'B': 3, 'C': 2, 'D': 1, 'E': 0}
+#   Another case to be careful is don't d0 duplicated count
+#Input: [['D'],['A','B'],['A','C'],['C','A'], ['B','A']]
+#Output: {'A': 2, 'C': 1, 'B': 1, 'D': 0}
+ 
 
-#def check_results(dict1, dict2):
-#    if len(dict1.keys()) != len(dict2.keys()):
-#        return 1
-#    for i in dict1.keys():
-#        if dict1[i] != dict2[i]:
-#            return 1
-#    return 0
-#
-#
+# def check_results(dict1, dict2):
+#     if len(dict1.keys()) != len(dict2.keys()):
+#         return 1
+#     for i in dict1.keys():
+#         if dict1[i] != dict2[i]:
+#             return 1
+#     return 0
+
+def count_friends(friends_lst):
+    relation = defaultdict(list)
+    ans = defaultdict(int) 
+    for friend in friends_lst:
+        if len(friend) > 1:
+            relation[friend[0]].append(friend[1])
+        else:
+            relation[friend[0]] = []
+
+    for friend in friends_lst:
+        if len(friend) > 1:
+            if friend[1] not in relation or friend[0] not in relation[friend[1]]:
+                relation[friend[1]].append(friend[0])
+    
+    for friend, friends_lst in relation.items():
+        ans[friend] = len(friends_lst)
+    return ans
+
+# assert check_results(count_friends([['A','B'], ['B','C'], ['A','C'], ['B','D'], ['E']]), {'A':2, 'B':3, 'C':2, 'D':1, 'E':0}) == 0
+# assert check_results(count_friends([['D'],['A','B'],['A','C'],['C','A'], ['B','A']]), {'A': 2, 'C': 1, 'B': 1, 'D': 0}) == 0
+# print('passed')
 #assert check_results(count_friends([['A'],['B'],['C'],['D'],['E']]), {'A': 0, 'C': 0, 'B': 0, 'D': 0, 'E': 0}) == 0
 #assert check_results(count_friends([['A','B'],['C','D'],['E','F']]), {'A': 1, 'C': 1, 'B': 1, 'E': 1, 'D': 1, 'F': 1}) == 0
 #assert check_results(count_friends([['A','B'],['A','C'],['A','D'],['E']]), {'A': 3, 'C': 1, 'B': 1, 'E': 0, 'D': 1}) == 0
