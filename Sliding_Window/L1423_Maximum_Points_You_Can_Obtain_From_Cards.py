@@ -39,3 +39,21 @@ class Solution:
                 presentSubarrayScore -= cardPoints[left]
                 left += 1
         return total_score - minSubarrayScore
+      
+      
+class Solution:
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        front_score, rear_score = 0, 0
+        n = len(cardPoints)
+        for i in range(k):
+            front_score +=  cardPoints[i]
+        # assume the current sum is the maximum
+        max_score = front_score
+        
+        for i in range(k-1,-1,-1):
+            rear_score += cardPoints[n-k+i]
+            front_score -= cardPoints[i]
+            max_score = max(max_score, front_score + rear_score)
+        return max_score
+      
+      
