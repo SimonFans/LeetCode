@@ -25,26 +25,15 @@ Output: 4
 #         self.right = None
 
 class Solution:
-    def closestValue(self, root: TreeNode, target: float) -> int:
-        if not root:
-            return None
-        result=None
-        mini_diff=sys.maxsize
-        
-        while root:
-            diff=abs(root.val-target)
-            
-            if diff<mini_diff:
-                result=root.val
-                mini_diff=diff
-            
-            if diff==0:
-                break
-            
-            if target>=root.val:
-                root=root.right
-            else:
-                root=root.left
-        return result
+    def closestValue(self, root: Optional[TreeNode], target: float) -> int:
+        heap = []
+        def inOrderTraversal(node, target):
+            if not node:
+                return
+            inOrderTraversal(node.left, target)
+            heapq.heappush(heap, (abs(node.val-target), node.val))
+            inOrderTraversal(node.right, target)
+        inOrderTraversal(root, target)
+        return heap[0][1]
         
         
