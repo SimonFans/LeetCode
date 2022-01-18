@@ -52,80 +52,45 @@ p = "mis*is*p*."
 Output: false
 
 
-class Solution(object):
-    def isMatch(self, s, p):
-        """
-        :type s: str
-        :type p: str
-        :rtype: bool
-        """
-        dp = [[False for j in range(len(p) + 1)] for i in range(len(s) + 1)]
-        #empty string with empty pattern
-        dp[0][0] = True
-        #handle the first row with empty string
-        for j in range(1, len(p) + 1):
-            if p[j - 1] == '*':
-                dp[0][j] = dp[0][j - 2]
+# video: explain very well: https://www.youtube.com/watch?v=HAA8mgxlov8
+'''
+good example:
+s = aab
+p = c*a*b
 
-        for i in range(1, len(s) + 1):
-            for j in range(1, len(p) + 1):
-                #check if char in string match the pattern or pattern is '.'
-                if s[i - 1] == p[j - 1] or p[j - 1] == '.':
-                    dp[i][j] = dp[i - 1][j - 1]
-                elif p[j - 1] == '*':
-                    #check condition without '*' and one char before
-                    if dp[i][j - 2]:
-                        dp[i][j] = True
-                    #check condition with one or more char before '*'
-                    elif s[i - 1] == p[j - 2] or p[j - 2] == '.':
-                        dp[i][j] = dp[i - 1][j]
-                else:
-                    #not matching, keep dp[i][j] to False
-                    continue
-
-        return dp[len(s)][len(p)]
-sol = Solution()
-sol.isMatch('xaabyc', 'xa*b.c')
-  
-# if only match '.'  => see below solution
-    
-  class Solution:
-    def isMatch(self, s: 'str', p: 'str') -> 'bool':
-        dp=[[False for i in range(len(p)+1)] for j in range(len(s)+1)]
-        dp[0][0]=True
-       
-        for i in range(1,len(s)+1):
-            for j in range(1,len(p)+1):
-                if p[j-1]=='.':
-                    dp[i][j]=dp[i-1][j-1]
-                else:
-                    dp[i][j]=dp[i-1][j-1] and s[i-1]==p[j-1]
-        return dp[len(s)][len(p)]
-
-
-    # another solution:
-    
-    class Solution(object):
-    def isMatch(self, s, p):
-        """
-        :type s: str
-        :type p: str
-        :rtype: bool
-        """
-        memo = {}
-        def dp(i, j):
-            if (i, j) not in memo:
-                if j == len(p):
-                    ans = i == len(s)
-                else:
-                    first_match = i < len(s) and p[j] in {s[i], '.'}
-                    if j+1 < len(p) and p[j+1] == '*':
-                        ans = dp(i, j+2) or first_match and dp(i+1, j)
-                    else:
-                        ans = first_match and dp(i+1, j+1)
-
-                memo[i, j] = ans
-            return memo[i, j]
-
-        return dp(0, 0)
+top down memorization
+two pointers. 
+One points to current pos in string, the other one points to current pos in pattern.
+'''
+ 
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        def dfs(i,j):
+            if (i,j) in cache:
+                return cache[(i,j)]
+            # If pointer i and j beyond the length of both s and p, then find the match
+            if i>= len(s) and j >= len(p):
+                return True
+            # if pattern one has beyond the length of itself
+            if j >= len(p):
+                return False
+            
+            # guarantee the len of string is still inbound
+            match = i < len(s) and (s[i] == p[j] or p[j] == '.')
+            # deal with '*' case. as we know, * cannot show at the beginning
+            # (1) If we use *, then dfs(i+1,j)
+            # (2) If we don't use *, then dfs(i, j+2)
+            if j+1 < len(p) and p[j+1] == '*':
+                # if use *, which means current pos matches, that's why do match and..
+                cache[(i,j)] = (match and dfs(i+1,j)) or dfs(i, j+2)
+                return cache[(i,j)]
+            if match:
+                cache[(i,j)] = dfs(i+1, j+1)
+                return cache[(i,j)]
+            cache[(i,j)] = False
+            return False
+        cache = {}
+        return dfs(0,0)
+            
+            
     
