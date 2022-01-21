@@ -52,10 +52,10 @@ class Solution:
         # obstacles from [[]] to {(),()...}
         obstacles = {(x, y) for x, y in obstacles}
         
-        # Let's assume the default direction is to east
+        # question says the robot starts at point (0,0) facing north
         dx, dy = 0, 1
         
-        # start point is origin
+        # start point is origin, can be changed to any start points
         x, y = 0, 0
         
         # Euclidean distance
@@ -69,11 +69,13 @@ class Solution:
             elif command == -2:
                 dx, dy = -dy, dx
             else:
+                # if meet obstacles then break and see what's the next command
                 for _ in range(command):
                     if (x + dx, y + dy) in obstacles:
                         break
+                    # go 1 step and keep looping
                     x, y = x + dx, y + dy
-                    print(x,y)
+                # calculate the maximum Euclidean distance so far
                 dist = max(dist, x**2 + y**2)
                 
         return dist
