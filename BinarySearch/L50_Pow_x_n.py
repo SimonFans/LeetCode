@@ -15,22 +15,22 @@ Output: 0.25000
 Explanation: 2-2 = 1/22 = 1/4 = 0.25
 
 class Solution:
-    def myPow(self, x, n):
-        """
-        :type x: float
-        :type n: int
-        :rtype: float
-        """
-        if n>=0:
-            return self.help(x,n)
+    def myPow(self, x: float, n: int) -> float:
+        if n == 0: return 1
+        if n < 0: return 1.0/self.myPow(x,-n)
+        half = self.myPow(x, n//2)
+        if n %2 == 0:
+            return half * half
         else:
-            return 1.0/self.help(x,-n)
+            return half * half * x
         
-    def help(self,x,n):
-        if n==0:
-            return 1
-        y=self.help(x,n//2)
-        if n%2==0:
-            return y*y
-        else:
-            return y*y*x
+'''
+Take 2^4 as an example
+
+half = (2, 4//2)
+half = (2, 2//2)
+half = (2, 1//2) 
+
+for each returned half, depends on nominator value example: (1//2) => 1, return result
+
+'''  
