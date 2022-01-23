@@ -29,22 +29,15 @@ Output: true
 
 
 class Solution:
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        stack=[]
-        mapping={")":"(","]":"[","}":"{"}
+    def isValid(self, s: str) -> bool:
+        hashMap = {'}':'{', ']':'[', ')':'('}
+        stack = []
         for char in s:
-            if char in mapping:
-                if stack:
-                    top=stack.pop()
-                else:
-                    top="#"
-                if mapping[char]!=top:
-                    return False
-            else:
+            if char not in hashMap:
                 stack.append(char)
+            else:
+                if not stack or stack[-1] != hashMap[char]:
+                    return False
+                stack.pop()
         return not stack
-        
+    
