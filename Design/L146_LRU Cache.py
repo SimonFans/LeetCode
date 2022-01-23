@@ -20,76 +20,58 @@ cache.get(1);       // returns -1 (not found)
 cache.get(3);       // returns 3
 cache.get(4);       // returns 4
 
-# Method 1:
+# Method 
 
+from collections import OrderedDict
 class LRUCache:
 
-    # @param capacity, an integer
-    def __init__(self, capacity):
+    def __init__(self, capacity: int):
+        self.hashMap = OrderedDict()
         self.capacity = capacity
-        self.cache = collections.OrderedDict()
 
-    # @return an integer
-    def get(self, key):
-        if not key in self.cache:
-            return -1
-        value = self.cache.pop(key)
-        self.cache[key] = value
-        return value
+    def get(self, key: int) -> int:
+        if key in self.hashMap:
+            self.hashMap.move_to_end(key)
+            return self.hashMap[key]
+        return -1
 
-    # @param key, an integer
-    # @param value, an integer
-    # @return nothing
-    def set(self, key, value):
-        if key in self.cache:
-            self.cache.pop(key)
-        elif len(self.cache) == self.capacity:
-            self.cache.popitem(last=False)
-        self.cache[key] = value
-        
-        
-# Method 2        
-class LRUCache:
-
-    def __init__(self, capacity):
-        """
-        :type capacity: int
-        """
-        LRUCache.capacity = capacity
-        LRUCache.length = 0
-        LRUCache.dict = collections.OrderedDict()
-
-    def get(self, key):
-        """
-        :type key: int
-        :rtype: int
-        """
-        try:
-            value = LRUCache.dict[key]
-            del LRUCache.dict[key]
-            LRUCache.dict[key] = value
-            return value
-        except:
-            return -1
-
-    def put(self, key, value):
-        """
-        :type key: int
-        :type value: int
-        :rtype: void
-        """
-        try:
-            del LRUCache.dict[key]
-            LRUCache.dict[key] = value
-        except:
-            if LRUCache.length == LRUCache.capacity:
-                LRUCache.dict.popitem(last = False)
-                LRUCache.length -= 1
-            LRUCache.dict[key] = value
-            LRUCache.length +=1
+    def put(self, key: int, value: int) -> None:
+        # if key exists, then update so have to move to the end first
+        if key in self.hashMap:
+            self.hashMap.move_to_end(key)
+        # new key:value or update existing key with new value
+        self.hashMap[key] = value
+        if len(self.hashMap) > self.capacity:
+            self.hashMap.popitem(last=False)
+            
 
 
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
+
+
+'''
+OrderedDict 用法：
+from collections import OrderedDict
+h = OrderedDict()
+h[2] = 2
+h[1] = 1
+h[3] = 3
+print('Before moving:', h)
+h.move_to_end(2)
+print('After moving:', h)
+# By default, LIFO h.popitem(last=True), you can change: FIFO h.popitem(last=False)
+h.popitem()
+print('Remove the last item', h)
+h.popitem(last=False)
+print('Remove the first item', h)
+
+Before moving: OrderedDict([(2, 2), (1, 1), (3, 3)])
+After moving: OrderedDict([(1, 1), (3, 3), (2, 2)])
+Remove the last item OrderedDict([(1, 1), (3, 3)])
+Remove the first item OrderedDict([(3, 3)])
+
+'''
