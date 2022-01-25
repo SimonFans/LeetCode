@@ -7,7 +7,7 @@
 class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         # if head is null
-        if not head:
+        if not head or k == 0:
             return head
         
         # get the length of linkedlist
@@ -16,8 +16,10 @@ class Solution:
             tail = tail.next
             length += 1
         
-        # if k > length and k < length
+        # in case k > len(linkedlist)
         k = k % length
+        
+        # if there's no need to do rotation then return head
         if k == 0:
             return head
         
