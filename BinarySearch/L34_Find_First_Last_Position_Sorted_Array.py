@@ -21,32 +21,39 @@ class Solution:
         :type target: int
         :rtype: List[int]
         """
-        l=self.findLeft(nums,target)
-        r=self.findRight(nums,target)
-        if l<=r:
-            return [l,r]
-        else:
-            return [-1,-1]
-        
-        
-    def findLeft(self,nums,target):
-        l,mid,r=0,0,len(nums)-1
-        while l<=r:
-            mid=l+(r-l)//2
-            if nums[mid]<target:
-                l=mid+1
-            else:
-                r=mid-1
-        return l
+        def searchBound(nums, target, flag):
+            left, right = 0, len(nums) - 1
+            while left <= right:
+                mid = left + (right - left)//2
+                if nums[mid] == target:
+                    # flag=True means find the first position
+                    if flag:
+                        # mid == left => 已经在最左边了
+                        # nums[mid-1] < target => 当前即为 first position
+                        if mid == left or nums[mid-1] < target:
+                            return mid
+                        # search on the left side 
+                        else:
+                            right = mid - 1
+                    # flag=False means find the last position
+                    else:
+                        # mid == right => 已经在最右边了
+                        # nums[mid-1] > target => 当前即为 last position
+                        if right == mid or nums[mid+1] > target:
+                            return mid
+                        else:
+                            left = mid + 1
+                elif nums[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return -1
+                            
+        lower_bound = searchBound(nums, target, flag = True)
+        if lower_bound == -1:
+            return [-1, -1]
+        upper_bound = searchBound(nums, target, flag = False)
+        return [lower_bound, upper_bound]
     
-    def findRight(self,nums,target):
-        l,mid,r=0,0,len(nums)-1
-        while l<=r:
-            mid=l+(r-l)//2
-            if nums[mid]<=target:
-                l=mid+1
-            else:
-                r=mid-1
-        return r
-
+    
 
