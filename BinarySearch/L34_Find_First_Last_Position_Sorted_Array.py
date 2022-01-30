@@ -41,6 +41,7 @@ class Solution:
                         # nums[mid-1] > target => 当前即为 last position
                         if right == mid or nums[mid+1] > target:
                             return mid
+                        # search on the right side 
                         else:
                             left = mid + 1
                 elif nums[mid] < target:
