@@ -17,6 +17,12 @@ Your function should return length = 5, with the first five elements of nums bei
 
 It doesn't matter what values are set beyond the returned length.
 
+'''
+Thoughts:
+1. 定义一个初始指针index指向数组中第一个数字
+2. 从第二个数字开始遍历整个数组，如果发现当前数字不同于index所指向的数字，则index+1，然后更新当前数字到index所指的位置
+3. 最后返回index+1即为有多少个distinct numbers
+'''
 
 class Solution:
     def removeDuplicates(self, nums):
