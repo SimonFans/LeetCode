@@ -31,12 +31,20 @@ class Solution:
         :type target: int
         :rtype: bool
         """
-        if(matrix == None or len(matrix) == 0 or len(matrix[0]) == 0):
-            return False
-        
-        i = 0; j = len(matrix[0])-1
-        while i < len(matrix) and j >= 0:
-            if matrix[i][j] == target: return True
-            elif matrix[i][j] > target: j -= 1
-            else: i += 1
+        '''
+        Solution: Binary Search
+                  Index map to matrix: row = mid//n,  column = mid %n
+        '''
+        m, n  = len(matrix), len(matrix[0])
+        left, right = 0, m*n - 1
+        while left <= right:
+            mid = left + (right - left)//2
+            if target < matrix[mid//n][mid%n]:
+                right = mid - 1
+            elif target > matrix[mid//n][mid%n]:
+                left = mid + 1
+            else:
+                return True
         return False
+      
+
