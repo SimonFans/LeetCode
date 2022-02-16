@@ -8,6 +8,21 @@ Example:
 
 Given 1->2->3->4, you should return the list as 2->1->4->3.
 
+思路：
+'''
+        -1             1  ->   2  ->  3  ->  4
+        dummy         head
+        prev_node
+        
+        -1             2  ->   1  ->  3  ->  4
+        dummy                        head
+                            prev_node
+        
+        order: -1 & 2 link,  1 & 2 after link, 2 & 1 link
+'''
+
+
+
 
 # Definition for singly-linked list.
 # class ListNode:
