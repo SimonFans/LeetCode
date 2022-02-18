@@ -24,51 +24,46 @@ Note:
 The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about how a graph is represented.
 You may assume that there are no duplicate edges in the input prerequisites.
 
-# 与207题差别就在于增加了个List/Array去记录每次popLeft()后的结果
-
-class Solution(object):
-    def findOrder(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: List[int]
-        """
-        # initialize 0 for each course
-        inDegree=[0 for i in range(numCourses+1)]
-
-        # create a course & its pre-course mapping
-        Map={}
+from collections import deque
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        '''
+        [[1,0],[2,0],[3,1],[3,2]]
         
-        # loop to let all course that need pre-course +=1, others no need are 0
-        # Map find relationship, exp: 1->4, 2->[4,5]...
-        for i in range(len(prerequisites)):
-            inDegree[prerequisites[i][0]]+=1
-            if prerequisites[i][1] not in Map:
-                Map[prerequisites[i][1]]=[prerequisites[i][0]]
-            else:
-                Map[prerequisites[i][1]].append(prerequisites[i][0])
+        # create 0 that 0 has no prerequisite, 1 has 0 as prerequisite, ... 3 has 1 & 2 two prerequisites
+        pre_condition => {0: set(), 1: (0), 2:(0), 3:(1,2)}
         
-        # find all courses not need pre-course, append to queue
-        queue=collections.deque()
-        for i in range(numCourses):
-            if inDegree[i]==0:
-                queue.append(i)    #queue: [0,1,2]
-
-
-        list_courses=[]
-        # BFS starts
-        while len(queue):
-            course=queue.popleft()
-            list_courses.append(course)
-            subcourses=Map.get(course,[])    # [4], [4,5]
-
-            for k in range(len(subcourses)):
-                if inDegree[subcourses[k]]!=0:
-                    inDegree[subcourses[k]]-=1
-                    if inDegree[subcourses[k]]==0:
-                        queue.append(subcourses[k])
-        print(list_courses)
-        if len(list_courses)==numCourses:
-            return list_courses
-        else:
-            return []
+        # 0 has two neighbors 1 & 2,...
+        graph = {0:(1,2), 1:(3), 2:(3)}
+        
+        '''
+        # prerequisite {}
+        pre_courses = {i: set() for i in range(numCourses)}
+        # graph
+        graph = collections.defaultdict(set)
+        
+        for i, j in prerequisites:
+            pre_courses[i].add(j)
+            graph[j].add(i)
+        
+        # return 
+        order = []
+        # used for bfs, find out which courses don't need pre-requisites, add to queue
+        queue = deque()
+        for k, v in pre_courses.items():
+            if len(v) == 0:
+                queue.append(k)
+        
+        # bfs starts
+        while queue:
+            course = queue.popleft()
+            order.append(course)
+            if len(order) == numCourses:
+                return order
+            for neighbor in graph[course]:
+                # remove pre-requisites from any courses that depends on it
+                pre_courses[neighbor].remove(course)
+                # if and only if current course has no pre-requisites, this course is allowed to add into queue
+                if not pre_courses[neighbor]:
+                    queue.append(neighbor)
+        return []
