@@ -1,22 +1,16 @@
-def minDeletion(s):
-    if not s or len(s) < 2:
-        return 0
-    
-    hash_map = defaultdict(int)
-    for ch in s:
-        hash_map[ch] = hash_map[ch] + 1
-
-    hash_set = set()
-    count = 0
-    for v in hash_map.values():
-        while v > 0:
-            if v not in hash_set:
-                hash_set.add(v) 
-                break
-            count += 1
-            v -= 1
-
-    return count
+class Solution:
+    def minDeletions(self, s: str) -> int:
+        frequency = [0] * 26
+        for char in s:
+            frequency[ord(char) - ord('a')] += 1
+        delete_count = 0
+        seen_frequency = set()
+        for i in range(26):
+            while frequency[i] and frequency[i] in seen_frequency:
+                frequency[i] -= 1
+                delete_count += 1
+            seen_frequency.add(frequency[i])
+        return delete_count
 
 print(minDeletion("eeeeffff"))
 print(minDeletion("aabbffddeaee"))
