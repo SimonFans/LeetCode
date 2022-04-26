@@ -57,7 +57,7 @@ assert s.solution([4, 3, 2, 3, 5, 2, 1],4) == True
 print("pass all test case")
         
 
-        class Solution:
+class Solution:
     def canPartitionKSubsets(self, arr: List[int], k: int) -> bool:
         def backtrack(count: int, curr_sum: int) -> bool:
         # We made k - 1 subsets with target sum and the last subset will also have target sum.
