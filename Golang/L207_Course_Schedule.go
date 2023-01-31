@@ -6,7 +6,7 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
     // each course takes up one position count
     indegree := make([]int, numCourses) // [0,0,0]
     // graph describes the dependency between target course and prerequisite course
-	graph := make([][]int, numCourses) // [[],[],[]]
+    graph := make([][]int, numCourses) // [[],[],[]]
     for _, prerequisite := range prerequisites {
 		source := prerequisite[1]                  // prerequisite
 		target := prerequisite[0]               // target
@@ -16,16 +16,16 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
         course1 has a prerequisite course 0 (graph[0])
         course2 has a prerequisite course 1 (graph[1])
         */
-		indegree[target] += 1
+    indegree[target] += 1
         // [0,1,1] course 1 has one prerequisite, course 2 has one prerequisite
-	}
+    }
     queue := make([]int, 0) // [] initilize a queue to store courses without prerequites
     // find out the courses without prerequisites via loop through the indegree slice 
-	for course, degree := range indegree {
-		if degree == 0 {
-			queue = append(queue, course) // add courses without prerequisites into a queue
-		}
+    for course, degree := range indegree {
+	if degree == 0 {
+	    queue = append(queue, course) // add courses without prerequisites into a queue
 	}
+    }
     /*
     For those courses which don't have prerequisites 
     pop from the queue and get all its dependency courses
